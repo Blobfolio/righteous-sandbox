@@ -4,10 +4,10 @@
 # install things like Node, PHPUnit, etc., locally.
 #
 # BUILD:
-# docker build -t blobfolio/righteous:latest -f Dockerfile .
+# docker build -t righteous/sandbox:latest -f Dockerfile .
 #
 # RUN:
-# docker run --rm -v $PWD:/share -it --name righteous blobfolio/righteous
+# docker run --rm -v $PWD:/share -it --name righteous righteous/sandbox
 
 FROM debian:buster-slim
 
