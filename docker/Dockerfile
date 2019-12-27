@@ -64,6 +64,7 @@ RUN set -eux; \
 		jq \
 		just \
 		less \
+		mariadb-server \
 		nodejs \
 		openssh-client \
 		php-pear \
@@ -93,6 +94,7 @@ RUN set -eux; \
 		unzip \
 		vim \
 		webp \
+		wp-cli \
 		xz-utils \
 		zip \
 	\
