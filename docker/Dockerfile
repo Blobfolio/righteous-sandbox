@@ -94,6 +94,7 @@ RUN set -eux; \
 		unzip \
 		vim \
 		webp \
+		whiptail \
 		wp-cli \
 		xz-utils \
 		zip \
