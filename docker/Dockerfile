@@ -13,7 +13,7 @@ FROM debian:buster-slim
 
 # Labels
 LABEL Name="Righteous Sandbox"
-LABEL Version="20191226"
+LABEL Version="20191229"
 
 ENV righteous_init=""
 
@@ -165,7 +165,7 @@ COPY setup/entrypoint.sh /opt/entrypoint.sh
 # Note the container version.
 RUN set -eux; \
 	mkdir /share \
-	&& echo "20191217" > /opt/righteous
+	&& echo "20191229" > /opt/righteous
 
 # This is how it begins.
 WORKDIR /share
