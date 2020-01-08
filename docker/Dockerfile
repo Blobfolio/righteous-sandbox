@@ -13,9 +13,7 @@ FROM debian:buster-slim
 
 # Labels
 LABEL Name="Righteous Sandbox"
-LABEL Version="20191229"
-
-ENV righteous_init=""
+LABEL Version="VERSION"
 
 # Run various APT operations.
 RUN set -eux; \
@@ -165,7 +163,8 @@ COPY setup/entrypoint.sh /opt/entrypoint.sh
 # Note the container version.
 RUN set -eux; \
 	mkdir /share \
-	&& echo "20191229" > /opt/righteous
+	&& echo "VERSION" > /opt/righteous-sandbox.version \
+	&& echo "$( date -u +"%F %T" ) UTC" > /opt/righteous-sandbox.built
 
 # This is how it begins.
 WORKDIR /share
