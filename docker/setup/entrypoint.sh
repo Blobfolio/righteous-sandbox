@@ -25,17 +25,25 @@ echo ""
 
 # Parse project settings, if they exist.
 if [ -f "/share/.righteous-sandbox.json" ]; then
+	_npm_install="$( cat "/share/.righteous-sandbox.json" | jq -r '.npm_install' | grep -v "none" )"
+	_just_init="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_init' | grep -v "none" )"
+	_just_list="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_list' | grep -v "none" )"
+
+	# Install NPM dependencies?
+	if [ "true" == "${_npm_install,,}" ] && [ -f "/share/package.json" ]; then
+		cd /share && npm i
+		chown -R --reference /share/package.json /share/node_modules
+	fi
+
 	# Only look at Just-related tasks if there's a justfile present.
 	if [ -f "/share/justfile" ]; then
 		# Initialization with a Just task?
-		righteous_init="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_init' | grep -v "none" )"
-		if [ ! -z "${righteous_init}" ]; then
-			cd /share && just "${righteous_init}"
+		if [ ! -z "${_just_init}" ]; then
+			cd /share && just "${_just_init}"
 		fi
 
 		# List Just tasks?
-		righteous_list="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_list' | grep -v "none" )"
-		if [ "true" == "${righteous_list,,}" ]; then
+		if [ "true" == "${_just_list,,}" ]; then
 			cd /share && just --list
 		fi
 	fi

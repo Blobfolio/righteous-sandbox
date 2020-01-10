@@ -1,5 +1,3 @@
 # Righteous Sandbox!
 
-**Righteous Sandbox!** is a very simple containerized development environment used internally on several Blobfolio projects.
-
-It is probably not very useful in other contexts.
+**Warning:** this is intended only for building our own projects. It changes frequently — often in breaking ways — so is not suitable for other uses.

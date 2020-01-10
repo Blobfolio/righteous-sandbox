@@ -1,4 +1,5 @@
 {
 	"just_init": "_init_example",
-	"just_list": true
+	"just_list": true,
+	"npm_install": false
 }

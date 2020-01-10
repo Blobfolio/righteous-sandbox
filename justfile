@@ -11,7 +11,7 @@
 
 src_dir      := justfile_directory() + "/docker"
 repo         := "https://github.com/Blobfolio/righteous-sandbox.git"
-version      := "1.0.0"
+version      := "1.0.1"
 
 docker_image := "righteous/sandbox"
 docker_name  := "righteous"
@@ -23,7 +23,7 @@ docker_sig   := "/opt/righteous-sandbox.version"
 @build: _requirements
 	# We want to make a copy of the Dockerfile to set the version, etc.
 	cp "{{ src_dir }}/Dockerfile" "{{ src_dir }}/Dockerfile.righteous"
-	sed -i "s/VERSION/{{ version }}/g" "{{ src_dir }}/Dockerfile.righteous"
+	sed -i "s/RSVERSION/{{ version }}/g" "{{ src_dir }}/Dockerfile.righteous"
 
 	# Build!
 	cd "{{ src_dir }}" \
@@ -56,7 +56,7 @@ docker_sig   := "/opt/righteous-sandbox.version"
 	just remove
 
 	# Force an update of Debian.
-	docker pull debian:buster-slim
+	docker pull buildpack-deps:buster
 
 	# Build it.
 	just build
