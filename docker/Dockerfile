@@ -97,6 +97,7 @@ RUN set -eux; \
 		gcc \
 		git \
 		gzip \
+		help2man \
 		jq \
 		jq \
 		just \
