@@ -33,28 +33,27 @@ ENV	RUSTUP_HOME=/usr/local/rustup \
 	CARGO_HOME=/usr/local/cargo \
 	PATH=/usr/local/cargo/bin:$PATH
 
-# Note the container version.
+# Set it up!
 RUN set -eux; \
 	mkdir /share \
 	&& echo "RSVERSION" > /opt/righteous-sandbox.version \
-	&& echo "$( date -u +"%F %T" ) UTC" > /opt/righteous-sandbox.built
-
-# Run various APT operations.
-RUN set -eux; \
-	cd /tmp \
+	&& echo "$( date -u +"%F %T" ) UTC" > /opt/righteous-sandbox.built \
+	&& cd /tmp \
+	\
 	&& echo "hsts=0" > /root/.wgetrc \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends \
+	&& apt-get update -qq \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends locales \
+	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+	&& locale-gen \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends localepurge \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 		apt-transport-https \
 		aria2 \
 		bash-completion \
 		curl \
 		gnupg \
-		locales \
 		software-properties-common \
 		wget \
-	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
-	&& locale-gen \
 	&& wget -q -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
 	&& wget -q -O - https://apt.blobfolio.com/public.gpg.key | apt-key add - \
 	&& wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
@@ -76,13 +75,13 @@ RUN set -eux; \
 	&& echo deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main >> /etc/apt/sources.list \
 	&& echo "deb https://deb.nodesource.com/node_13.x buster main" >> /etc/apt/sources.list \
 	\
-	&& apt-get update \
+	&& apt-get update -qq \
 	&& echo debconf apt-fast/dlflag boolean true | debconf-set-selections \
 	&& echo debconf apt-fast/aptmanager string apt-get | debconf-set-selections \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast \
-	&& apt-fast dist-upgrade -y \
+	&& DEBIAN_FRONTEND=noninteractive apt-fast dist-upgrade -y \
 	\
-	&& apt-fast install -y --no-install-recommends \
+	&& DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 		bc \
 		bison \
 		brotli \
@@ -166,33 +165,17 @@ RUN set -eux; \
 	&& dpkg -i /tmp/watchexec.deb \
 	&& rm /tmp/watchexec.deb \
 	\
-	&& apt-get autoremove --purge -y \
-	&& apt-get clean -y \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& rm -rf /tmp/* \
-	&& rm -rf /var/log/*
-
-# Install Ninja.
-RUN set -eux; \
-	wget -q -O /tmp/ninja.zip $ninja_url \
+	&& wget -q -O /tmp/ninja.zip $ninja_url \
 	&& cd /tmp \
 	&& unzip ninja.zip \
 	&& mv ninja /usr/bin/ninja \
-	&& rm -rf /tmp/*
-
-# Install Rust.
-RUN set -eux; \
-	wget -q -O /tmp/rustup.sh $rust_url \
+	&& chmod 755 /usr/bin/ninja \
+	\
+	&& wget -q -O /tmp/rustup.sh $rust_url \
 	&& chmod +x /tmp/rustup.sh \
 	&& /tmp/rustup.sh -y --profile minimal --default-toolchain $rust_version \
-    && rustup --version \
-    && cargo --version \
-    && rustc --version \
-	&& rm -rf /tmp/*
-
-# Install (too many) NPM things.
-RUN set -eux; \
-	npm set cache /tmp/npm-cache \
+    \
+    && npm set cache /tmp/npm-cache \
 	&& npm set package-lock false \
 	&& npm set save false \
 	&& npm set unsafe-perm true \
@@ -211,26 +194,17 @@ RUN set -eux; \
 		svgo \
 		terser \
 		uglify-es \
-	&& rm -rf /tmp/*
-
-# Install Composer.
-RUN set -eux; \
-	wget -q -O /usr/bin/composer $composer_url \
-	&& chmod 755 /usr/bin/composer
-
-# Install PHPAB.
-RUN set -eux; \
-	wget -q -O /usr/bin/phpab $phpab_url \
-	&& chmod 755 /usr/bin/phpab
-
-# Install PHPUnit.
-RUN set -eux; \
-	wget -q -O /usr/bin/phpunit $phpunit_url \
-	&& chmod 755 /usr/bin/phpunit
-
-# Install PHPCS.
-RUN set -eux; \
-	mkdir /opt/phpcs \
+	\
+	&& wget -q -O /usr/bin/composer $composer_url \
+	&& chmod 755 /usr/bin/composer \
+	\
+	&& wget -q -O /usr/bin/phpab $phpab_url \
+	&& chmod 755 /usr/bin/phpab \
+	\
+	&& wget -q -O /usr/bin/phpunit $phpunit_url \
+	&& chmod 755 /usr/bin/phpunit \
+	\
+	&& mkdir /opt/phpcs \
 	&& wget -q -O /opt/phpcs/tmp.zip $phpcs_url \
 	&& cd /opt/phpcs \
 	&& unzip tmp.zip \
@@ -239,13 +213,28 @@ RUN set -eux; \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcs /usr/bin/phpcs \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcbf /usr/bin/phpcbf \
 	&& find /opt/phpcs -iname '*.md' -delete \
+	\
+	&& sed -i 's/^USE_DPKG/#USE_DPKG/g' /etc/locale.nopurge \
+	&& localepurge -v \
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge localepurge -y \
+	\
+	&& DEBIAN_FRONTEND=noninteractive apt-fast install bleachbit -y --no-install-recommends \
+	&& bleachbit --clean system.localizations \
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge bleachbit -y \
+	\
+	&& DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y \
+	&& apt-get clean -y \
 	&& composer clear \
-	&& rm -rf /root/.composer
+	&& rm -rf \
+		/root/.composer \
+		/root/.config \
+		/root/.subversion \
+		/tmp/* \
+		/var/lib/apt/lists/* \
+		/var/log/*
 
 # Copy setup files.
-COPY setup/.vimrc /root/.vimrc
-COPY setup/.bashrc /root/.bashrc
-COPY setup/.profile /root/.profile
+COPY setup/.vimrc setup/.bashrc setup/.profile /root/
 COPY setup/entrypoint.sh /opt/entrypoint.sh
 
 # This is how it begins.
