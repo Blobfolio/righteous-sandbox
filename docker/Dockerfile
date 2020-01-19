@@ -19,6 +19,7 @@ LABEL Name="Righteous Sandbox" \
 	Version="RSVERSION"
 
 # Binary paths.
+ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
 ARG composer_url=https://getcomposer.org/download/1.9.1/composer.phar
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.8/phpab-1.25.8.phar
@@ -42,21 +43,23 @@ RUN set -eux; \
 	\
 	&& echo "hsts=0" > /root/.wgetrc \
 	&& apt-get update -qq \
+	\
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge mercurial subversion -y \
+	&& DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y \
+	\
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends locales \
 	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
 	&& locale-gen \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends localepurge \
+	\
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 		apt-transport-https \
 		aria2 \
 		bash-completion \
-		curl \
-		gnupg \
 		software-properties-common \
-		wget \
-	&& wget -q -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+	&& wget -q -O - https://packages.sury.org/php/apt.gpg | apt-key add - \
 	&& wget -q -O - https://apt.blobfolio.com/public.gpg.key | apt-key add - \
-	&& wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+	&& wget -q -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B \
 	\
@@ -71,8 +74,8 @@ RUN set -eux; \
 	&& echo deb https://apt.blobfolio.com/debian/ buster main >> /etc/apt/sources.list \
 	&& echo deb https://packages.sury.org/php/ buster main >> /etc/apt/sources.list \
 	&& echo deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main >> /etc/apt/sources.list \
-	&& echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main >> /etc/apt/sources.list \
-	&& echo deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-8 main >> /etc/apt/sources.list \
+	&& echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main >> /etc/apt/sources.list \
+	&& echo deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main >> /etc/apt/sources.list \
 	&& echo "deb https://deb.nodesource.com/node_13.x buster main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update -qq \
@@ -86,45 +89,39 @@ RUN set -eux; \
 		bison \
 		brotli \
 		build-essential \
-		bzip2 \
-		clang-8 \
-		clang-format-8 \
-		clang-tools-8 \
+		clang-9 \
+		clang-format-9 \
+		clang-tools-9 \
+		clangd-9 \
 		cmake \
 		flex \
-		g++ \
-		gcc \
-		git \
-		gzip \
 		help2man \
-		jq \
 		jq \
 		just \
 		kmod \
 		less \
-		less \
-		libc++-8-dev \
-		libc++abi-8-dev \
-		libclang-8-dev \
-		libclang-common-8-dev \
-		libclang1-8 \
+		libc++-9-dev \
+		libc++abi-9-dev \
+		libclang-9-dev \
+		libclang-common-9-dev \
+		libclang1-9 \
 		libfl-dev \
-		libfuzzer-8-dev \
-		libllvm-8-ocaml-dev \
-		libllvm8 \
+		libllvm-9-ocaml-dev \
+		libllvm9 \
 		libmpc-dev \
 		libmpfr-dev \
-		libomp-8-dev \
 		libz3-dev \
-		lld-8 \
-		lldb-8 \
-		llvm-8 \
-		llvm-8-dev \
-		llvm-8-runtime \
+		lld-9 \
+		lldb-9 \
+		llvm-9 \
+		llvm-9-dev \
+		llvm-9-examples \
+		llvm-9-runtime \
+		man \
 		mariadb-server \
 		nasm \
 		nodejs \
-		openssh-client \
+		p7zip-full \
 		php-pear \
 		php-php-gettext \
 		php-phpseclib \
@@ -144,20 +141,17 @@ RUN set -eux; \
 		php7.3-readline \
 		php7.3-xml \
 		php7.3-zip \
-		python-clang-8 \
+		python-clang-9 \
 		re2c \
 		rsync \
 		ruby \
 		sass \
 		sassc \
 		sudo \
-		unzip \
-		vim \
 		vim \
 		webp \
 		whiptail \
 		wp-cli \
-		xz-utils \
 		yasm \
 		zip \
 	\
@@ -213,22 +207,23 @@ RUN set -eux; \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcs /usr/bin/phpcs \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcbf /usr/bin/phpcbf \
 	&& find /opt/phpcs -iname '*.md' -delete \
+	&& cd /tmp \
 	\
 	&& sed -i 's/^USE_DPKG/#USE_DPKG/g' /etc/locale.nopurge \
 	&& localepurge -v \
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge localepurge -y \
 	\
-	&& DEBIAN_FRONTEND=noninteractive apt-fast install bleachbit -y --no-install-recommends \
-	&& bleachbit --clean system.localizations \
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge bleachbit -y \
-	\
+	&& DEBIAN_FRONTEND=noninteractive apt-get purge software-properties-common -y \
 	&& DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y \
+	\
+	&& git clone $bleachbit_url /tmp/bleachbit \
+	&& python /tmp/bleachbit/bleachbit.py --clean system.localizations \
+	\
 	&& apt-get clean -y \
 	&& composer clear \
 	&& rm -rf \
 		/root/.composer \
 		/root/.config \
-		/root/.subversion \
 		/tmp/* \
 		/var/lib/apt/lists/* \
 		/var/log/*
