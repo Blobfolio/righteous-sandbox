@@ -11,7 +11,7 @@
 
 src_dir      := justfile_directory() + "/docker"
 repo         := "https://github.com/Blobfolio/righteous-sandbox.git"
-version      := "1.0.3"
+version      := "1.0.4"
 
 docker_image := "righteous/sandbox"
 docker_name  := "righteous"
