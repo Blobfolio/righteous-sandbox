@@ -20,7 +20,7 @@ LABEL Name="Righteous Sandbox" \
 
 # Binary paths.
 ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
-ARG composer_url=https://getcomposer.org/download/1.9.1/composer.phar
+ARG composer_url=https://getcomposer.org/download/1.9.2/composer.phar
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.8/phpab-1.25.8.phar
 ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz
