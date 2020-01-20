@@ -23,7 +23,7 @@ ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
 ARG composer_url=https://getcomposer.org/download/1.9.1/composer.phar
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.8/phpab-1.25.8.phar
-ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.zip
+ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-8.phar
 ARG	rust_url=https://sh.rustup.rs
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.12.0/watchexec-1.12.0-x86_64-unknown-linux-gnu.deb
@@ -198,15 +198,10 @@ RUN set -eux; \
 	&& chmod 755 /usr/bin/phpunit \
 	\
 	&& mkdir /opt/phpcs \
-	&& wget -q -O /opt/phpcs/tmp.zip $phpcs_url \
-	&& cd /opt/phpcs \
-	&& unzip tmp.zip \
-	&& rm tmp.zip \
-	&& composer install \
+	&& wget -q -O /tmp/phpcs.tar.gz $phpcs_url \
+	&& tar -C /opt/phpcs -xvf /tmp/phpcs.tar.gz \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcs /usr/bin/phpcs \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcbf /usr/bin/phpcbf \
-	&& find /opt/phpcs -iname '*.md' -delete \
-	&& cd /tmp \
 	\
 	&& sed -i 's/^USE_DPKG/#USE_DPKG/g' /etc/locale.nopurge \
 	&& localepurge -v \
