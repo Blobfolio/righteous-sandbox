@@ -82,7 +82,6 @@ RUN set -eux; \
 	&& echo debconf apt-fast/dlflag boolean true | debconf-set-selections \
 	&& echo debconf apt-fast/aptmanager string apt-get | debconf-set-selections \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast \
-	&& DEBIAN_FRONTEND=noninteractive apt-fast dist-upgrade -y \
 	\
 	&& DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 		bc \
