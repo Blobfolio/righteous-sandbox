@@ -80,6 +80,7 @@ RUN set -eux; \
 	&& echo "deb https://deb.nodesource.com/node_13.x buster main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update -qq \
+	&& echo debconf apt-fast/maxdownloads string 4 | debconf-set-selections \
 	&& echo debconf apt-fast/dlflag boolean true | debconf-set-selections \
 	&& echo debconf apt-fast/aptmanager string apt-get | debconf-set-selections \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast \
