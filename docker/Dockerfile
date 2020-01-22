@@ -63,19 +63,19 @@ RUN set -eux; \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B \
 	\
-	&& echo deb http://ftp.us.debian.org/debian/ buster main > /etc/apt/sources.list \
-	&& echo deb-src http://ftp.us.debian.org/debian/ buster main >> /etc/apt/sources.list \
-	&& echo deb http://security.debian.org/ buster/updates main >> /etc/apt/sources.list \
-	&& echo deb-src http://security.debian.org/ buster/updates main >> /etc/apt/sources.list \
-	&& echo deb http://ftp.us.debian.org/debian/ buster-updates main >> /etc/apt/sources.list \
-	&& echo deb-src http://ftp.us.debian.org/debian/ buster-updates main >> /etc/apt/sources.list \
-	&& echo deb http://ftp.us.debian.org/debian buster-backports main >> /etc/apt/sources.list \
-	&& echo deb-src http://ftp.us.debian.org/debian buster-backports main >> /etc/apt/sources.list \
-	&& echo deb https://apt.blobfolio.com/debian/ buster main >> /etc/apt/sources.list \
-	&& echo deb https://packages.sury.org/php/ buster main >> /etc/apt/sources.list \
-	&& echo deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main >> /etc/apt/sources.list \
-	&& echo deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main >> /etc/apt/sources.list \
-	&& echo deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main >> /etc/apt/sources.list \
+	&& echo "deb http://ftp.us.debian.org/debian/ buster main" > /etc/apt/sources.list \
+	&& echo "deb-src http://ftp.us.debian.org/debian/ buster main" >> /etc/apt/sources.list \
+	&& echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list \
+	&& echo "deb-src http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list \
+	&& echo "deb http://ftp.us.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list \
+	&& echo "deb-src http://ftp.us.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list \
+	&& echo "deb http://ftp.us.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
+	&& echo "deb-src http://ftp.us.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
+	&& echo "deb https://apt.blobfolio.com/debian/ buster main" >> /etc/apt/sources.list \
+	&& echo "deb https://packages.sury.org/php/ buster main" >> /etc/apt/sources.list \
+	&& echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >> /etc/apt/sources.list \
+	&& echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main" >> /etc/apt/sources.list \
+	&& echo "deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-9 main" >> /etc/apt/sources.list \
 	&& echo "deb https://deb.nodesource.com/node_13.x buster main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update -qq \
