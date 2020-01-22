@@ -9,54 +9,124 @@
 #   just <task>
 ##
 
+docker_sig   := "/opt/righteous-sandbox.version"
 src_dir      := justfile_directory() + "/docker"
 repo         := "https://github.com/Blobfolio/righteous-sandbox.git"
 version      := "1.0.6"
 
-docker_image := "righteous/sandbox"
-docker_name  := "righteous"
-docker_sig   := "/opt/righteous-sandbox.version"
+
+
+##      ##
+# Usage! #
+##      ##
+
+# Launch Sandbox.
+launch DIR="": _build-if
+	#!/usr/bin/env bash
+
+	_dir=""
+	if [ -z "{{ DIR }}" ]; then
+		_dir="{{ invocation_directory() }}"
+	else
+		_dir="$( realpath "{{ DIR }}" )"
+		if [ ! -d "${_dir}" ]; then
+			just _error "Invalid share directory."
+			exit 1
+		fi
+	fi
+
+	docker run \
+		--rm \
+		-v "${_dir}":/share \
+		-it \
+		--name "$( just _dist-image-name )" \
+		"$( just _dist-image )"
+
+
+# Initialization task example.
+@_launch-init: _only_docker
+	# Print something so we know it worked.
+	just _warning "This is being executed from Righteous Sandbox's source directory."
 
 
 
-# Build Environment.
+##                    ##
+# Distribution Helpers #
+##                    ##
+
+# Output the distribution.
+_dist:
+	#!/usr/bin/env bash
+
+	# Do we want Debian or Ubuntu? Debian is default, so Ubuntu requires
+	# a direct (case-insensitive) hit.
+	_dist="$( echo "{{ env_var_or_default("righteous_dist", "debian") }}" | tr '[:upper:]' '[:lower:]' )"
+	if [ "ubuntu" == "${_dist}" ]; then
+		echo "ubuntu"
+	else
+		echo "debian"
+	fi
+
+
+# Output the distribution's base image.
+_dist-base-image:
+	#!/usr/bin/env bash
+
+	if [ "debian" == "$( just _dist )" ]; then
+		echo "debian:buster"
+	else
+		echo "ubuntu:rolling"
+	fi
+
+
+# Output the distribution image:tag.
+@_dist-image:
+	echo "righteous/sandbox:$( just _dist )"
+
+
+# Output the distribution image's runtime name.
+@_dist-image-name:
+	echo "righteous_$( just _dist )"
+
+
+
+
+##                ##
+# Image Management #
+##                ##
+
+# Build Sandbox.
 @build: _requirements
 	# We want to make a copy of the Dockerfile to set the version, etc.
-	cp "{{ src_dir }}/Dockerfile" "{{ src_dir }}/Dockerfile.righteous"
+	cp "{{ src_dir }}/$( just _dist )" "{{ src_dir }}/Dockerfile.righteous"
 	sed -i "s/RSVERSION/{{ version }}/g" "{{ src_dir }}/Dockerfile.righteous"
 
 	# Build!
 	cd "{{ src_dir }}" \
 		&& docker build \
-			-t "{{ docker_image }}":latest \
+			-t "$( just _dist-image )" \
 			-f Dockerfile.righteous .
 
 	# Clean up.
 	rm "{{ src_dir }}/Dockerfile.righteous"
 
 
-# Build If Needed.
-@build-if: _requirements
-	[ ! -z "$( docker images | grep "{{ docker_image }}" )" ] || just rebuild
-
-
-# Launch Environment.
-@launch DIR: build-if
-	docker run \
-		--rm \
-		-v "{{ DIR }}":/share \
-		-it \
-		--name {{ docker_name }} \
-		{{ docker_image }}
+# Build Sandbox, but only if missing.
+@_build-if: _requirements
+	[ ! -z "$( docker images | \
+		grep "righteous/sandbox" | \
+		grep "$( just _dist )" )" ] || just rebuild
 
 
 # Rebuild Environment.
 @rebuild: _requirements
+	just _header "Rebuilding $( just _dist-image )."
+
 	# Make sure the image is removed.
 	just remove
 
 	# Force an update of Debian.
-	docker pull debian:buster
+	docker pull "$( just _dist-base-image )"
 
 	# Build it.
 	just build
@@ -64,7 +134,9 @@ docker_sig   := "/opt/righteous-sandbox.version"
 
 # Remove Environment.
 @remove: _requirements
-	[ -z "$( docker images | grep "{{ docker_image }}" )" ] || docker rmi "{{ docker_image }}"
+	[ -z "$( docker images | \
+		grep "righteous/sandbox" | \
+		grep "$( just _dist )" )" ] || docker rmi "$( just _dist-image )"
 
 
 # Pull sources from master and then rebuild.
@@ -74,12 +146,6 @@ docker_sig   := "/opt/righteous-sandbox.version"
 
 	# Update container.
 	just rebuild
-
-
-# Initialization task example.
-@_init_example: _only_docker
-	# Print something so we know it worked.
-	echo "This is an example initialization task."
 
 
 
@@ -118,6 +184,14 @@ docker_sig   := "/opt/righteous-sandbox.version"
 ##             ##
 # NOTIFICATIONS #
 ##             ##
+
+# Task header.
+@_header TASK:
+	echo "\e[34;1m[Task] \e[0;1m{{ TASK }}\e[0m"
+
+# Echo a warning.
+@_warning COMMENT:
+	>&2 echo "\e[33;1m[Warning] \e[0;1m{{ COMMENT }}\e[0m"
 
 # Echo an error.
 @_error COMMENT:

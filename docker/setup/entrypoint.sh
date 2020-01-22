@@ -19,7 +19,7 @@ echo ":  ;          \\     ,   ;"
 echo "'._:           ;   :   ("
 echo -e "    \\/  .__    ;    \\   \`-.  \e[96;1mRighteous Sandbox\e[0m \e[95;1mv$( cat /opt/righteous-sandbox.version )\e[0m"
 echo -e "     ;     \"-,/_..--\"\`-..__) \e[2mBuilt: $( cat /opt/righteous-sandbox.built )\e[0m"
-echo "     '\"\"--.._:"
+echo -e "     '\"\"--.._:               \e[2m$( cat /etc/os-release | grep PRETTY_NAME | cut -d '=' -f2 | cut -d '"' -f2 )\e[\0m"
 echo ""
 echo ""
 

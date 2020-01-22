@@ -1,4 +1,4 @@
-# Righteous Sandbox
+# Righteous Sandbox: Debian Buster
 #
 # This is a crude containerized build environment that moots the need to
 # install things like Node, PHPUnit, etc., locally.
@@ -15,8 +15,7 @@
 FROM debian:buster
 
 # Labels.
-LABEL Name="Righteous Sandbox" \
-	Version="RSVERSION"
+LABEL Name="Righteous Sandbox"
 
 # Binary paths.
 ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
