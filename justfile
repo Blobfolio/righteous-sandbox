@@ -11,7 +11,7 @@
 
 src_dir      := justfile_directory() + "/docker"
 repo         := "https://github.com/Blobfolio/righteous-sandbox.git"
-version      := "1.0.5"
+version      := "1.0.6"
 
 docker_image := "righteous/sandbox"
 docker_name  := "righteous"
@@ -56,7 +56,7 @@ docker_sig   := "/opt/righteous-sandbox.version"
 	just remove
 
 	# Force an update of Debian.
-	docker pull buildpack-deps:buster
+	docker pull debian:buster
 
 	# Build it.
 	just build
