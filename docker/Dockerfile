@@ -12,7 +12,7 @@
 # RUN:
 # docker run --rm -v $PWD:/share -it --name righteous righteous/sandbox
 
-FROM buildpack-deps:buster
+FROM debian:buster
 
 # Labels.
 LABEL Name="Righteous Sandbox" \
@@ -44,9 +44,6 @@ RUN set -eux; \
 	&& echo "hsts=0" > /root/.wgetrc \
 	&& apt-get update -qq \
 	\
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge mercurial subversion -y \
-	&& DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y \
-	\
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends locales \
 	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
 	&& locale-gen \
@@ -56,7 +53,12 @@ RUN set -eux; \
 		apt-transport-https \
 		aria2 \
 		bash-completion \
+		ca-certificates \
+		curl \
+		dirmngr \
+		gnupg \
 		software-properties-common \
+		wget \
 	&& wget -q -O - https://packages.sury.org/php/apt.gpg | apt-key add - \
 	&& wget -q -O - https://apt.blobfolio.com/public.gpg.key | apt-key add - \
 	&& wget -q -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
@@ -84,16 +86,24 @@ RUN set -eux; \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y apt-fast \
 	\
 	&& DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
+		autoconf \
+		automake \
 		bc \
 		bison \
 		brotli \
 		build-essential \
+		bzip2 \
 		clang-9 \
 		clang-format-9 \
 		clang-tools-9 \
 		clangd-9 \
 		cmake \
+		dpkg-dev \
+		file \
 		flex \
+		g++ \
+		gcc \
+		git \
 		help2man \
 		jq \
 		just \
@@ -116,11 +126,14 @@ RUN set -eux; \
 		llvm-9-dev \
 		llvm-9-examples \
 		llvm-9-runtime \
+		make \
 		man \
 		mariadb-server \
 		nasm \
 		nodejs \
+		openssh-client \
 		p7zip-full \
+		patch \
 		php-pear \
 		php-php-gettext \
 		php-phpseclib \
@@ -140,6 +153,7 @@ RUN set -eux; \
 		php7.3-readline \
 		php7.3-xml \
 		php7.3-zip \
+		procps \
 		python-clang-9 \
 		re2c \
 		rsync \
@@ -147,10 +161,12 @@ RUN set -eux; \
 		sass \
 		sassc \
 		sudo \
+		unzip \
 		vim \
 		webp \
 		whiptail \
 		wp-cli \
+		xz-utils \
 		yasm \
 		zip \
 	\
