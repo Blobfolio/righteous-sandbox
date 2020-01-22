@@ -1,4 +1,5 @@
 {
+	"apt_update": false,
 	"just_init": "_launch-init",
 	"just_list": false,
 	"npm_install": false

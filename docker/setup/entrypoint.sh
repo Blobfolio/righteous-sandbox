@@ -25,9 +25,16 @@ echo ""
 
 # Parse project settings, if they exist.
 if [ -f "/share/.righteous-sandbox.json" ]; then
+	_apt_update="$( cat "/share/.righteous-sandbox.json" | jq -r '.apt_update' | grep -v "none" )"
 	_npm_install="$( cat "/share/.righteous-sandbox.json" | jq -r '.npm_install' | grep -v "none" )"
 	_just_init="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_init' | grep -v "none" )"
 	_just_list="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_list' | grep -v "none" )"
+
+	# Run updates?
+	if [ "true" == "${_apt_update,,}" ]; then
+		apt-get update -qq
+		DEBIAN_FRONTEND=noninteractive apt-fast dist-upgrade -y
+	fi
 
 	# Install NPM dependencies?
 	if [ "true" == "${_npm_install,,}" ] && [ -f "/share/package.json" ]; then
