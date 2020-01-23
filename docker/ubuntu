@@ -58,7 +58,7 @@ RUN set -eux; \
 		gnupg2 \
 		software-properties-common \
 		wget \
-	&& wget -q -O - https://apt.blobfolio.com/public.gpg.key | apt-key add - \
+	&& wget -q -O - https://apt.blobfolio.com/apt.blobfolio.com.key | apt-key add - \
 	&& wget -q -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& add-apt-repository -y ppa:ondrej/php \
@@ -100,6 +100,7 @@ RUN set -eux; \
 		clangd-9 \
 		cmake \
 		dpkg-dev \
+		dpkg-sig \
 		file \
 		flex \
 		g++ \

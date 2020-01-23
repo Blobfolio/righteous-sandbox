@@ -59,7 +59,7 @@ RUN set -eux; \
 		software-properties-common \
 		wget \
 	&& wget -q -O - https://packages.sury.org/php/apt.gpg | apt-key add - \
-	&& wget -q -O - https://apt.blobfolio.com/public.gpg.key | apt-key add - \
+	&& wget -q -O - https://apt.blobfolio.com/apt.blobfolio.com.key | apt-key add - \
 	&& wget -q -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B \
@@ -99,6 +99,7 @@ RUN set -eux; \
 		clangd-9 \
 		cmake \
 		dpkg-dev \
+		dpkg-sig \
 		file \
 		flex \
 		g++ \
