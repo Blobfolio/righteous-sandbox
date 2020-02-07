@@ -23,12 +23,13 @@ ARG composer_url=https://getcomposer.org/download/1.9.2/composer.phar
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.9.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.8/phpab-1.25.8.phar
 ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz
-ARG	phpunit_url=https://phar.phpunit.de/phpunit-8.phar
+ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
 ARG	rust_url=https://sh.rustup.rs
+ARG sd_url=https://github.com/chmln/sd/releases/download/0.6.5/sd-0.6.5-x86_64-unknown-linux-gnu.zip
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.12.0/watchexec-1.12.0-x86_64-unknown-linux-gnu.deb
 
 # Rust requires a few other bits of knowledge to install itself.
-ARG rust_version=1.40.0
+ARG rust_version=1.41.0
 ENV	RUSTUP_HOME=/usr/local/rustup \
 	CARGO_HOME=/usr/local/cargo \
 	PATH=/usr/local/cargo/bin:$PATH
@@ -135,6 +136,7 @@ RUN set -eux; \
 		nodejs \
 		openssh-client \
 		p7zip-full \
+		parallel \
 		patch \
 		php-pear \
 		php-php-gettext \
@@ -175,6 +177,11 @@ RUN set -eux; \
 	&& wget -q -O /tmp/watchexec.deb $watchexec_url \
 	&& dpkg -i /tmp/watchexec.deb \
 	&& rm /tmp/watchexec.deb \
+	\
+	&& wget -q -O /tmp/sd.zip $sd_url \
+	&& unzip /tmp/sd.zip -d /tmp \
+	&& mv /tmp/x86_64-unknown-linux-gnu/sd /usr/bin \
+	&& rm -rf /tmp/sd.zip /tmp/x86_64-unknown-linux-gnu \
 	\
 	&& wget -q -O /tmp/ninja.zip $ninja_url \
 	&& cd /tmp \
