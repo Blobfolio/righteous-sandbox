@@ -235,7 +235,7 @@ RUN set -eux; \
 	&& DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y \
 	\
 	&& git clone $bleachbit_url /tmp/bleachbit \
-	&& python /tmp/bleachbit/bleachbit.py --clean system.localizations \
+	&& python3 /tmp/bleachbit/bleachbit.py --clean system.localizations \
 	\
 	&& apt-get clean -y \
 	&& composer clear \
