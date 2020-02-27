@@ -202,6 +202,8 @@ RUN set -eux; \
 	&& npm install -g \
 		csso-cli \
 		eslint \
+		eslint-plugin-jsdoc \
+		google-closure-compiler \
 		grunt \
 		grunt-cli \
 		grunt-contrib-sass \
