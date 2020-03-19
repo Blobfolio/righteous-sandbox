@@ -94,6 +94,7 @@ RUN set -eux; \
 		brotli \
 		build-essential \
 		bzip2 \
+		channelz \
 		clang-9 \
 		clang-format-9 \
 		clang-tools-9 \
