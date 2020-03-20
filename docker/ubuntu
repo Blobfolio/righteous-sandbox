@@ -109,6 +109,7 @@ RUN set -eux; \
 		gcc \
 		git \
 		help2man \
+		htminl \
 		inkscape \
 		jq \
 		just \
