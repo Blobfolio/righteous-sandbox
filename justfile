@@ -46,7 +46,7 @@ launch DIR="": _build-if
 # Initialization task example.
 @_launch-init: _only_docker
 	# Print something so we know it worked.
-	just _warning "This is being executed from Righteous Sandbox's source directory."
+	fyi warning "This is being executed from Righteous Sandbox's source directory."
 
 
 
@@ -188,10 +188,6 @@ _dist-base-image:
 # Task header.
 @_header TASK:
 	echo "\e[34;1m[Task] \e[0;1m{{ TASK }}\e[0m"
-
-# Echo a warning.
-@_warning COMMENT:
-	>&2 echo "\e[33;1m[Warning] \e[0;1m{{ COMMENT }}\e[0m"
 
 # Echo an error.
 @_error COMMENT:
