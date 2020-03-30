@@ -102,8 +102,11 @@ RUN set -eux; \
 		cmake \
 		dpkg-dev \
 		dpkg-sig \
+		fd-find \
 		file \
+		flaca \
 		flex \
+		fyi \
 		g++ \
 		gcc \
 		git \
