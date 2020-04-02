@@ -26,7 +26,7 @@ ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.9/phpab
 ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
 ARG	rust_url=https://sh.rustup.rs
-ARG sd_url=https://github.com/chmln/sd/releases/download/0.6.5/sd-0.6.5-x86_64-unknown-linux-gnu.zip
+ARG sd_url=https://github.com/chmln/sd/releases/download/v0.7.2/sd-0.7.2-x86_64-unknown-linux-gnu.zip
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.12.0/watchexec-1.12.0-x86_64-unknown-linux-gnu.deb
 
 # Rust requires a few other bits of knowledge to install itself.
