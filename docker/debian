@@ -191,8 +191,8 @@ RUN set -eux; \
 	\
 	&& wget -q -O /tmp/sd.zip $sd_url \
 	&& unzip /tmp/sd.zip -d /tmp \
-	&& mv /tmp/x86_64-unknown-linux-gnu/sd /usr/bin \
-	&& rm -rf /tmp/sd.zip /tmp/x86_64-unknown-linux-gnu \
+	&& mv /tmp/b/x86_64-unknown-linux-gnu/release/sd /usr/bin \
+	&& rm -rf /tmp/sd.zip /tmp/b \
 	\
 	&& wget -q -O /tmp/ninja.zip $ninja_url \
 	&& cd /tmp \
