@@ -165,7 +165,6 @@ RUN set -eux; \
 		php7.3-xml \
 		php7.3-zip \
 		procps \
-		python-clang-10 \
 		rargs \
 		re2c \
 		rsync \
