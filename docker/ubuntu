@@ -19,6 +19,7 @@ LABEL Name="Righteous Sandbox"
 
 # Binary paths.
 ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
+ARG clangfix_url=https://gist.githubusercontent.com/junkdog/70231d6953592cd6f27def59fe19e50d/raw/92f0e73d2558402b7316021c1ab408b30e534de6/update-alternatives-clang.sh
 ARG composer_url=https://getcomposer.org/download/1.10.1/composer.phar
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.9/phpab-1.25.9.phar
@@ -180,6 +181,11 @@ RUN set -eux; \
 		xz-utils \
 		yasm \
 		zip \
+	\
+	&& wget -q -O /tmp/clangfix.sh $clangfix_url \
+	&& chmod +x /tmp/clangfix.sh \
+	&& /tmp/clangfix.sh 10 100 \
+	&& rm /tmp/clangfix.sh \
 	\
 	&& wget -q -O /tmp/watchexec.deb $watchexec_url \
 	&& dpkg -i /tmp/watchexec.deb \
