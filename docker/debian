@@ -21,12 +21,12 @@ LABEL Name="Righteous Sandbox"
 ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
 ARG clangfix_url=https://gist.githubusercontent.com/junkdog/70231d6953592cd6f27def59fe19e50d/raw/92f0e73d2558402b7316021c1ab408b30e534de6/update-alternatives-clang.sh
 ARG composer_url=https://getcomposer.org/download/1.10.1/composer.phar
+ARG hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.9.0/hyperfine_1.9.0_amd64.deb
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.9/phpab-1.25.9.phar
 ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
 ARG	rust_url=https://sh.rustup.rs
-ARG sd_url=https://github.com/chmln/sd/releases/download/v0.7.2/sd-0.7.2-x86_64-unknown-linux-gnu.zip
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.12.0/watchexec-1.12.0-x86_64-unknown-linux-gnu.deb
 
 # Rust requires a few other bits of knowledge to install itself.
@@ -111,6 +111,7 @@ RUN set -eux; \
 		g++ \
 		gcc \
 		git \
+		gnuplot \
 		help2man \
 		htminl \
 		inkscape \
@@ -170,6 +171,7 @@ RUN set -eux; \
 		ruby \
 		sass \
 		sassc \
+		sd \
 		sudo \
 		unzip \
 		vim \
@@ -185,14 +187,13 @@ RUN set -eux; \
 	&& /tmp/clangfix.sh 10 100 \
 	&& rm /tmp/clangfix.sh \
 	\
+	&& wget -q -O /tmp/hyperfine.deb $hyperfine_url \
+	&& dpkg -i /tmp/hyperfine.deb \
+	&& rm /tmp/hyperfine.deb \
+	\
 	&& wget -q -O /tmp/watchexec.deb $watchexec_url \
 	&& dpkg -i /tmp/watchexec.deb \
 	&& rm /tmp/watchexec.deb \
-	\
-	&& wget -q -O /tmp/sd.zip $sd_url \
-	&& unzip /tmp/sd.zip -d /tmp \
-	&& mv /tmp/b/x86_64-unknown-linux-gnu/release/sd /usr/bin \
-	&& rm -rf /tmp/sd.zip /tmp/b \
 	\
 	&& wget -q -O /tmp/ninja.zip $ninja_url \
 	&& cd /tmp \
