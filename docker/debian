@@ -58,11 +58,11 @@ RUN set -eux; \
 		curl \
 		dirmngr \
 		gnupg \
+		lsb-release \
 		software-properties-common \
 		wget \
 	&& wget -q -O - https://packages.sury.org/php/apt.gpg | apt-key add - \
 	&& wget -q -O - https://apt.blobfolio.com/apt.blobfolio.com.key | apt-key add - \
-	&& wget -q -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B \
 	\
@@ -77,8 +77,6 @@ RUN set -eux; \
 	&& echo "deb https://apt.blobfolio.com/debian/ buster main" >> /etc/apt/sources.list \
 	&& echo "deb https://packages.sury.org/php/ buster main" >> /etc/apt/sources.list \
 	&& echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >> /etc/apt/sources.list \
-	&& echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-10 main" >> /etc/apt/sources.list \
-	&& echo "deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-10 main" >> /etc/apt/sources.list \
 	&& echo "deb https://deb.nodesource.com/node_13.x buster main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update -qq \
@@ -96,10 +94,6 @@ RUN set -eux; \
 		build-essential \
 		bzip2 \
 		channelz \
-		clang-10 \
-		clang-format-10 \
-		clang-tools-10 \
-		clangd-10 \
 		cmake \
 		dpkg-dev \
 		dpkg-sig \
@@ -119,23 +113,10 @@ RUN set -eux; \
 		just \
 		kmod \
 		less \
-		libc++-10-dev \
-		libc++abi-10-dev \
-		libclang-10-dev \
-		libclang-common-10-dev \
-		libclang1-10 \
 		libfl-dev \
-		libllvm-10-ocaml-dev \
-		libllvm10 \
 		libmpc-dev \
 		libmpfr-dev \
 		libz3-dev \
-		lld-10 \
-		lldb-10 \
-		llvm-10 \
-		llvm-10-dev \
-		llvm-10-examples \
-		llvm-10-runtime \
 		make \
 		man \
 		mariadb-server \
@@ -182,6 +163,7 @@ RUN set -eux; \
 		yasm \
 		zip \
 	\
+	&& bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
 	&& wget -q -O /tmp/clangfix.sh $clangfix_url \
 	&& chmod +x /tmp/clangfix.sh \
 	&& /tmp/clangfix.sh 10 100 \
