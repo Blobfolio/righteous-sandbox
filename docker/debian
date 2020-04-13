@@ -113,10 +113,13 @@ RUN set -eux; \
 		just \
 		kmod \
 		less \
+		libbz2-dev \
 		libfl-dev \
 		libmpc-dev \
 		libmpfr-dev \
+		libssl-dev \
 		libz3-dev \
+		libzip-dev \
 		make \
 		man \
 		mariadb-server \
@@ -126,6 +129,7 @@ RUN set -eux; \
 		p7zip-full \
 		parallel \
 		patch \
+		pkg-config \
 		php-pear \
 		php-php-gettext \
 		php-phpseclib \
@@ -186,6 +190,13 @@ RUN set -eux; \
 	&& wget -q -O /tmp/rustup.sh $rust_url \
 	&& chmod +x /tmp/rustup.sh \
 	&& /tmp/rustup.sh -y --profile minimal --default-toolchain $rust_version \
+	\
+	&& cargo install \
+		cargo-bloat \
+		cargo-deb \
+		cargo-tree \
+		toml-cli \
+	&& rm -rf /usr/local/cargo/registry \
     \
     && npm set cache /tmp/npm-cache \
 	&& npm set package-lock false \

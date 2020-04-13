@@ -12,7 +12,7 @@
 docker_sig   := "/opt/righteous-sandbox.version"
 src_dir      := justfile_directory() + "/docker"
 repo         := "https://github.com/Blobfolio/righteous-sandbox.git"
-version      := "1.1.6"
+version      := "1.1.7"
 
 
 
