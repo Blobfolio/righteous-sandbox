@@ -55,28 +55,13 @@ launch DIR="": _build-if
 ##                    ##
 
 # Output the distribution.
-_dist:
-	#!/usr/bin/env bash
-
-	# Do we want Debian or Ubuntu? Debian is default, so Ubuntu requires
-	# a direct (case-insensitive) hit.
-	_dist="$( echo "{{ env_var_or_default("righteous_dist", "debian") }}" | tr '[:upper:]' '[:lower:]' )"
-	if [ "ubuntu" == "${_dist}" ]; then
-		echo "ubuntu"
-	else
-		echo "debian"
-	fi
+@_dist:
+	echo "debian"
 
 
 # Output the distribution's base image.
-_dist-base-image:
-	#!/usr/bin/env bash
-
-	if [ "debian" == "$( just _dist )" ]; then
-		echo "debian:buster"
-	else
-		echo "ubuntu:rolling"
-	fi
+@_dist-base-image:
+	echo "debian:buster"
 
 
 # Output the distribution image:tag.
