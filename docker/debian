@@ -184,9 +184,14 @@ RUN set -eux; \
 	&& chmod +x /tmp/rustup.sh \
 	&& /tmp/rustup.sh -y --profile minimal --default-toolchain $rust_version \
 	\
+	&& rustup component add clippy \
+	&& rustup component add llvm-tools-preview \
+	&& rustup component add rustfmt \
 	&& cargo install \
 		cargo-bloat \
+		cargo-count \
 		cargo-deb \
+		cargo-outdated \
 		cargo-tree \
 		toml-cli \
 	&& rm -rf /usr/local/cargo/registry \
