@@ -72,10 +72,11 @@ RUN set -eux; \
 	&& echo "deb-src http://ftp.us.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list \
 	&& echo "deb http://ftp.us.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
 	&& echo "deb-src http://ftp.us.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
-	&& echo "deb https://apt.blobfolio.com/debian/ buster main" >> /etc/apt/sources.list \
-	&& echo "deb https://packages.sury.org/php/ buster main" >> /etc/apt/sources.list \
-	&& echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" >> /etc/apt/sources.list \
-	&& echo "deb https://deb.nodesource.com/node_13.x buster main" >> /etc/apt/sources.list \
+	\
+	&& echo "deb https://apt.blobfolio.com/debian/ buster main" > /etc/apt/sources.list.d/blobfolio.list \
+	&& echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list \
+	&& echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" > /etc/apt/sources.list.d/apt-fast.list \
+	&& echo "deb https://deb.nodesource.com/node_13.x buster main" > /etc/apt/sources.list.d/node.list \
 	\
 	&& apt-get update -qq \
 	&& echo debconf apt-fast/maxdownloads string 4 | debconf-set-selections \
