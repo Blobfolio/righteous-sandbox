@@ -110,14 +110,9 @@ RUN set -eux; \
 		inkscape \
 		jq \
 		just \
-		kmod \
 		less \
 		libbz2-dev \
-		libfl-dev \
-		libmpc-dev \
-		libmpfr-dev \
 		libssl-dev \
-		libz3-dev \
 		libzip-dev \
 		make \
 		man \
@@ -150,7 +145,6 @@ RUN set -eux; \
 		php7.3-zip \
 		procps \
 		rargs \
-		re2c \
 		rsync \
 		ruby \
 		sass \
