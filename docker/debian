@@ -18,14 +18,11 @@ FROM debian:buster
 LABEL Name="Righteous Sandbox"
 
 # Binary paths.
-ARG clangfix_url=https://gist.githubusercontent.com/junkdog/70231d6953592cd6f27def59fe19e50d/raw/92f0e73d2558402b7316021c1ab408b30e534de6/update-alternatives-clang.sh
-ARG composer_url=https://getcomposer.org/download/1.10.1/composer.phar
-ARG hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.9.0/hyperfine_1.9.0_amd64.deb
+ARG	composer_url=https://getcomposer.org/download/1.10.1/composer.phar
+ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.9.0/hyperfine_1.9.0_amd64.deb
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.9/phpab-1.25.9.phar
-ARG	phpcs_url=https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
-ARG	rust_url=https://sh.rustup.rs
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.12.0/watchexec-1.12.0-x86_64-unknown-linux-gnu.deb
 
 # Rust requires a few other bits of knowledge to install itself.
@@ -161,7 +158,7 @@ RUN set -eux; \
 		zip \
 	\
 	&& bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
-	&& wget -q -O /tmp/clangfix.sh $clangfix_url \
+	&& wget -q -O /tmp/clangfix.sh "https://gist.githubusercontent.com/junkdog/70231d6953592cd6f27def59fe19e50d/raw/92f0e73d2558402b7316021c1ab408b30e534de6/update-alternatives-clang.sh" \
 	&& chmod +x /tmp/clangfix.sh \
 	&& /tmp/clangfix.sh 10 100 \
 	&& rm /tmp/clangfix.sh \
@@ -180,7 +177,7 @@ RUN set -eux; \
 	&& mv ninja /usr/bin/ninja \
 	&& chmod 755 /usr/bin/ninja \
 	\
-	&& wget -q -O /tmp/rustup.sh $rust_url \
+	&& wget -q -O /tmp/rustup.sh https://sh.rustup.rs \
 	&& chmod +x /tmp/rustup.sh \
 	&& /tmp/rustup.sh -y --profile minimal --default-toolchain $rust_version \
 	\
@@ -231,7 +228,7 @@ RUN set -eux; \
 	&& chmod 755 /usr/bin/phpunit \
 	\
 	&& mkdir /opt/phpcs \
-	&& wget -q -O /tmp/phpcs.tar.gz $phpcs_url \
+	&& wget -q -O /tmp/phpcs.tar.gz https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz \
 	&& tar -C /opt/phpcs -xvf /tmp/phpcs.tar.gz \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcs /usr/bin/phpcs \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcbf /usr/bin/phpcbf \
