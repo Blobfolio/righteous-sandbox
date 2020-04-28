@@ -18,7 +18,6 @@ FROM debian:buster
 LABEL Name="Righteous Sandbox"
 
 # Binary paths.
-ARG bleachbit_url=https://github.com/bleachbit/bleachbit.git
 ARG clangfix_url=https://gist.githubusercontent.com/junkdog/70231d6953592cd6f27def59fe19e50d/raw/92f0e73d2558402b7316021c1ab408b30e534de6/update-alternatives-clang.sh
 ARG composer_url=https://getcomposer.org/download/1.10.1/composer.phar
 ARG hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.9.0/hyperfine_1.9.0_amd64.deb
@@ -45,11 +44,6 @@ RUN set -eux; \
 	&& echo "hsts=0" > /root/.wgetrc \
 	&& apt-get update -qq \
 	\
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends locales \
-	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
-	&& locale-gen \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends localepurge \
-	\
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 		apt-transport-https \
 		aria2 \
@@ -58,9 +52,13 @@ RUN set -eux; \
 		curl \
 		dirmngr \
 		gnupg \
+		locales \
 		lsb-release \
 		software-properties-common \
 		wget \
+	&& sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+	&& locale-gen \
+	\
 	&& wget -q -O - https://packages.sury.org/php/apt.gpg | apt-key add - \
 	&& wget -q -O - https://apt.blobfolio.com/apt.blobfolio.com.key | apt-key add - \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
@@ -238,15 +236,8 @@ RUN set -eux; \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcs /usr/bin/phpcs \
 	&& ln -s /opt/phpcs/lib/vendor/bin/phpcbf /usr/bin/phpcbf \
 	\
-	&& sed -i 's/^USE_DPKG/#USE_DPKG/g' /etc/locale.nopurge \
-	&& localepurge -v \
-	&& DEBIAN_FRONTEND=noninteractive apt-get purge localepurge -y \
-	\
 	&& DEBIAN_FRONTEND=noninteractive apt-get purge software-properties-common -y \
 	&& DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y \
-	\
-	&& git clone $bleachbit_url /tmp/bleachbit \
-	&& python3 /tmp/bleachbit/bleachbit.py --clean system.localizations \
 	\
 	&& apt-get clean -y \
 	&& composer clear \
