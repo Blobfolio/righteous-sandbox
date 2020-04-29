@@ -185,6 +185,7 @@ RUN set -eux; \
 	&& rustup component add rustfmt \
 	&& cargo install \
 		cargo-bloat \
+		cargo-cache \
 		cargo-count \
 		cargo-deb \
 		cargo-outdated \
