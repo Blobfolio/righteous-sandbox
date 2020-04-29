@@ -157,11 +157,10 @@ RUN set -eux; \
 		yasm \
 		zip \
 	\
-	&& bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
-	&& wget -q -O /tmp/clangfix.sh "https://gist.githubusercontent.com/junkdog/70231d6953592cd6f27def59fe19e50d/raw/92f0e73d2558402b7316021c1ab408b30e534de6/update-alternatives-clang.sh" \
-	&& chmod +x /tmp/clangfix.sh \
-	&& /tmp/clangfix.sh 10 100 \
-	&& rm /tmp/clangfix.sh \
+	&& wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
+	&& chmod 755 /tmp/llvm.sh \
+	&& /tmp/llvm.sh 9 \
+	&& rm /tmp/llvm.sh \
 	\
 	&& wget -q -O /tmp/hyperfine.deb $hyperfine_url \
 	&& dpkg -i /tmp/hyperfine.deb \
