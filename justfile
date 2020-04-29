@@ -9,10 +9,15 @@
 #   just <task>
 ##
 
-docker_sig   := "/opt/righteous-sandbox.version"
-src_dir      := justfile_directory() + "/docker"
-repo         := "https://github.com/Blobfolio/righteous-sandbox.git"
-version      := "1.1.8"
+src_dir       := justfile_directory() + "/docker"
+repo          := "https://github.com/Blobfolio/righteous-sandbox.git"
+
+docker_sig    := "/opt/righteous-sandbox.version"
+version       := "1.1.9"
+
+base_image    := "debian:buster"
+main_image    := "righteous/sandbox:debian"
+instance_name := "righteous_sandbox_debian"
 
 
 
@@ -39,40 +44,14 @@ launch DIR="": _build-if
 		--rm \
 		-v "${_dir}":/share \
 		-it \
-		--name "$( just _dist-image-name )" \
-		"$( just _dist-image )"
+		--name "{{ instance_name }}" \
+		"{{ main_image }}"
 
 
 # Initialization task example.
 @_launch-init: _only_docker
 	# Print something so we know it worked.
 	fyi warning "This is being executed from Righteous Sandbox's source directory."
-
-
-
-##                    ##
-# Distribution Helpers #
-##                    ##
-
-# Output the distribution.
-@_dist:
-	echo "debian"
-
-
-# Output the distribution's base image.
-@_dist-base-image:
-	echo "debian:buster"
-
-
-# Output the distribution image:tag.
-@_dist-image:
-	echo "righteous/sandbox:$( just _dist )"
-
-
-# Output the distribution image's runtime name.
-@_dist-image-name:
-	echo "righteous_$( just _dist )"
-
 
 
 
@@ -83,13 +62,13 @@ launch DIR="": _build-if
 # Build Sandbox.
 @build: _requirements
 	# We want to make a copy of the Dockerfile to set the version, etc.
-	cp "{{ src_dir }}/$( just _dist )" "{{ src_dir }}/Dockerfile.righteous"
+	cp "{{ src_dir }}/debian" "{{ src_dir }}/Dockerfile.righteous"
 	sed -i "s/RSVERSION/{{ version }}/g" "{{ src_dir }}/Dockerfile.righteous"
 
 	# Build!
 	cd "{{ src_dir }}" \
 		&& docker build \
-			-t "$( just _dist-image )" \
+			-t "{{ main_image }}" \
 			-f Dockerfile.righteous .
 
 	# Clean up.
@@ -100,18 +79,18 @@ launch DIR="": _build-if
 @_build-if: _requirements
 	[ ! -z "$( docker images | \
 		grep "righteous/sandbox" | \
-		grep "$( just _dist )" )" ] || just rebuild
+		grep "debian" )" ] || just rebuild
 
 
 # Rebuild Environment.
 @rebuild: _requirements
-	just _header "Rebuilding $( just _dist-image )."
+	just _header "Rebuilding {{ main_image }}."
 
 	# Make sure the image is removed.
 	just remove
 
 	# Force an update of Debian.
-	docker pull "$( just _dist-base-image )"
+	docker pull "{{ base_image }}"
 
 	# Build it.
 	just build
@@ -121,7 +100,7 @@ launch DIR="": _build-if
 @remove: _requirements
 	[ -z "$( docker images | \
 		grep "righteous/sandbox" | \
-		grep "$( just _dist )" )" ] || docker rmi "$( just _dist-image )"
+		grep "debian" )" ] || docker rmi "{{ main_image }}"
 
 
 # Pull sources from master and then rebuild.
