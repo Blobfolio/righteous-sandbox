@@ -12,6 +12,8 @@
 # RUN:
 # docker run --rm -v $PWD:/share -it --name righteous righteous/sandbox
 
+
+
 FROM debian:buster
 
 # Labels.
@@ -183,14 +185,7 @@ RUN set -eux; \
 	&& rustup component add clippy \
 	&& rustup component add llvm-tools-preview \
 	&& rustup component add rustfmt \
-	&& cargo install \
-		cargo-bloat \
-		cargo-cache \
-		cargo-count \
-		cargo-deb \
-		cargo-outdated \
-		cargo-tree \
-		toml-cli \
+	&& DEBIAN_FRONTEND=noninteractive apt-fast install -y righteous-cargo \
 	&& rm -rf /usr/local/cargo/registry \
     \
     && npm set cache /tmp/npm-cache \
