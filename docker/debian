@@ -93,6 +93,7 @@ RUN set -eux; \
 		bzip2 \
 		channelz \
 		cmake \
+		devscripts \
 		dpkg-dev \
 		dpkg-sig \
 		fd-find \
