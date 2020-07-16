@@ -13,7 +13,7 @@ src_dir       := justfile_directory() + "/docker"
 repo          := "https://github.com/Blobfolio/righteous-sandbox.git"
 
 docker_sig    := "/opt/righteous-sandbox.version"
-version       := "1.2.1"
+version       := "1.2.2"
 
 base_image    := "debian:buster"
 main_image    := "righteous/sandbox:debian"
