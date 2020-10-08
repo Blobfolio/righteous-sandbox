@@ -20,7 +20,7 @@ FROM debian:buster
 LABEL Name="Righteous Sandbox"
 
 # Binary paths.
-ARG	composer_url=https://getcomposer.org/download/1.10.10/composer.phar
+ARG	composer_url=https://getcomposer.org/download/1.10.13/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.10.0/hyperfine_1.10.0_amd64.deb
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.25.9/phpab-1.25.9.phar
@@ -127,22 +127,22 @@ RUN set -eux; \
 		php-pear \
 		php-php-gettext \
 		php-phpseclib \
-		php7.3-bcmath \
-		php7.3-bz2 \
-		php7.3-cli \
-		php7.3-common \
-		php7.3-curl \
-		php7.3-gd \
-		php7.3-gmp \
-		php7.3-imap \
-		php7.3-intl \
-		php7.3-json \
-		php7.3-mbstring \
-		php7.3-mysql \
-		php7.3-opcache \
-		php7.3-readline \
-		php7.3-xml \
-		php7.3-zip \
+		php7.4-bcmath \
+		php7.4-bz2 \
+		php7.4-cli \
+		php7.4-common \
+		php7.4-curl \
+		php7.4-gd \
+		php7.4-gmp \
+		php7.4-imap \
+		php7.4-intl \
+		php7.4-json \
+		php7.4-mbstring \
+		php7.4-mysql \
+		php7.4-opcache \
+		php7.4-readline \
+		php7.4-xml \
+		php7.4-zip \
 		procps \
 		rargs \
 		rsync \
