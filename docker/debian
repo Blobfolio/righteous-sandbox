@@ -91,6 +91,7 @@ RUN set -eux; \
 		brotli \
 		build-essential \
 		bzip2 \
+		cargo-bashman \
 		channelz \
 		cmake \
 		devscripts \
@@ -105,7 +106,6 @@ RUN set -eux; \
 		gcc \
 		git \
 		gnuplot \
-		help2man \
 		htminl \
 		inkscape \
 		jq \
