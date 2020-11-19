@@ -124,6 +124,7 @@ RUN set -eux; \
 		parallel \
 		patch \
 		pkg-config \
+		php-getid3 \
 		php-pear \
 		php-php-gettext \
 		php-phpseclib \
@@ -142,6 +143,7 @@ RUN set -eux; \
 		php7.4-opcache \
 		php7.4-readline \
 		php7.4-xml \
+		php7.4-yaml \
 		php7.4-zip \
 		procps \
 		rargs \
