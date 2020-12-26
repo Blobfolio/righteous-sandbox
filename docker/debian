@@ -94,6 +94,7 @@ RUN set -eux; \
 		bzip2 \
 		cargo-bashman \
 		channelz \
+		checksame \
 		cmake \
 		devscripts \
 		dpkg-dev \
