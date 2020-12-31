@@ -173,11 +173,6 @@ RUN set -eux; \
 	&& dpkg -i /tmp/cavif_0.6.4_amd64.deb \
 	&& rm /tmp/cavif.zip /tmp/cavif_0.6.4_amd64.deb \
 	\
-	&& wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh \
-	&& chmod 755 /tmp/llvm.sh \
-	&& /tmp/llvm.sh 9 \
-	&& rm /tmp/llvm.sh \
-	\
 	&& wget -q -O /tmp/hyperfine.deb $hyperfine_url \
 	&& dpkg -i /tmp/hyperfine.deb \
 	&& rm /tmp/hyperfine.deb \
