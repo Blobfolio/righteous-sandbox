@@ -20,7 +20,7 @@ FROM debian:buster
 LABEL Name="Righteous Sandbox"
 
 # Binary paths.
-ARG cavif_url=https://github.com/kornelski/cavif-rs/releases/download/v0.6.4/cavif-0.6.4.zip
+ARG cavif_url=https://github.com/kornelski/cavif-rs/releases/download/v0.6.5/cavif_0.6.5_amd64.deb
 ARG	composer_url=https://getcomposer.org/download/2.0.8/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
@@ -168,10 +168,9 @@ RUN set -eux; \
 		yesvgmap \
 		zip \
 	\
-	&& wget -O /tmp/cavif.zip $cavif_url \
-	&& unzip -j /tmp/cavif.zip "debian/cavif_0.6.4_amd64.deb" -d /tmp \
-	&& dpkg -i /tmp/cavif_0.6.4_amd64.deb \
-	&& rm /tmp/cavif.zip /tmp/cavif_0.6.4_amd64.deb \
+	&& wget -O /tmp/cavif.deb $cavif_url \
+	&& dpkg -i /tmp/cavif.deb \
+	&& rm /tmp/cavif.deb \
 	\
 	&& wget -q -O /tmp/hyperfine.deb $hyperfine_url \
 	&& dpkg -i /tmp/hyperfine.deb \
