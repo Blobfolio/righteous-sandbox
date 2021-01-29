@@ -20,8 +20,8 @@ FROM debian:buster
 LABEL Name="Righteous Sandbox"
 
 # Binary paths.
-ARG cavif_url=https://github.com/kornelski/cavif-rs/releases/download/v0.6.5/cavif_0.6.5_amd64.deb
-ARG	composer_url=https://getcomposer.org/download/2.0.8/composer.phar
+ARG cavif_url=https://github.com/kornelski/cavif-rs/releases/download/v0.6.6/cavif_0.6.6_amd64.deb
+ARG	composer_url=https://getcomposer.org/download/2.0.9/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
 ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.26.0/phpab-1.26.0.phar
@@ -206,8 +206,8 @@ RUN set -eux; \
 		eslint \
 		eslint-plugin-jsdoc \
 		google-closure-compiler \
+		grunt-cli \
 		html-minifier \
-		pkg \
 		stylecow \
 		svgo \
 		terser \
