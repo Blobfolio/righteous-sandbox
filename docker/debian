@@ -195,6 +195,8 @@ RUN set -eux; \
 	&& rustup component add rustfmt \
 	&& DEBIAN_FRONTEND=noninteractive apt-fast install -y righteous-cargo \
 	&& rm -rf /usr/local/cargo/registry \
+	\
+	&& curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh \
     \
     && npm set cache /tmp/npm-cache \
 	&& npm set package-lock false \
