@@ -209,7 +209,6 @@ RUN set -eux; \
 		eslint-plugin-jsdoc \
 		google-closure-compiler \
 		grunt-cli \
-		html-minifier \
 		stylecow \
 		svgo \
 		terser \
