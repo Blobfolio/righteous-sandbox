@@ -159,6 +159,7 @@ RUN set -eux; \
 		sqlite3 \
 		sudo \
 		unzip \
+		valgrind \
 		vim \
 		webp \
 		whiptail \
