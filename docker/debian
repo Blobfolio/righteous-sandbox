@@ -29,7 +29,7 @@ ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.14.1/watchexec-1.14.1-x86_64-unknown-linux-gnu.deb
 
 # Rust requires a few other bits of knowledge to install itself.
-ARG rust_version=1.50.0
+ARG rust_version=stable
 ENV	RUSTUP_HOME=/usr/local/rustup \
 	CARGO_HOME=/usr/local/cargo \
 	PATH=/usr/local/cargo/bin:$PATH
@@ -195,9 +195,8 @@ RUN set -eux; \
 	&& rustup component add llvm-tools-preview \
 	&& rustup component add rustfmt \
 	&& DEBIAN_FRONTEND=noninteractive apt-fast install -y righteous-cargo \
-	&& rm -rf /usr/local/cargo/registry \
-	\
-	&& curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh \
+	&& rm -rf /usr/local/cargo/registry/* \
+	&& mv /usr/local/rustup/toolchains/stable-x86_64-unknown-linux-gnu /usr/local/rustup/.stable \
     \
     && npm set cache /tmp/npm-cache \
 	&& npm set package-lock false \
@@ -210,10 +209,8 @@ RUN set -eux; \
 		eslint-plugin-jsdoc \
 		google-closure-compiler \
 		grunt-cli \
-		stylecow \
 		svgo \
 		terser \
-		yarn \
 	\
 	&& wget -q -O /usr/bin/composer $composer_url \
 	&& chmod 755 /usr/bin/composer \
@@ -245,6 +242,9 @@ RUN set -eux; \
 # Copy setup files.
 COPY setup/.vimrc setup/.bashrc setup/.profile /root/
 COPY setup/entrypoint.sh /opt/entrypoint.sh
+
+VOLUME /usr/local/cargo/registry
+VOLUME /usr/local/rustup/toolchains
 
 # This is how it begins.
 WORKDIR /share
