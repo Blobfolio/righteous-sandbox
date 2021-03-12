@@ -48,7 +48,7 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 
 	# Update Rust.
 	if [ "true" == "${_rust_update,,}" ]; then
-		rustup --quiet update
+		env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update
 
 		if [ -f "/share/Cargo.toml" ]; then
 			[ ! -f "/share/Cargo.lock" ] || rm "/share/Cargo.lock"
