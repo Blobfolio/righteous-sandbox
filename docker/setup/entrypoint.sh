@@ -5,7 +5,7 @@ set -e
 [ -f "/opt/righteous-sandbox.version" ] || exit 1
 
 # Make sure Rust stable is populated.
-[ -d "/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-gnu" ] || mv "/usr/local/rustup/.stable" "/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-gnu"
+[ -d "/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-gnu" ] || tar -xf "/usr/local/rustup/stable.tar.xz" -C "/usr/local/rustup/toolchains"
 
 # Print a fun ASCII greeting.
 echo "                              __"
