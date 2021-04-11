@@ -23,7 +23,6 @@ LABEL Name="Righteous Sandbox"
 ARG cavif_url=https://github.com/kornelski/cavif-rs/releases/download/v0.6.6/cavif_0.6.6_amd64.deb
 ARG	composer_url=https://getcomposer.org/download/2.0.11/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
-ARG	ninja_url=https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.26.0/phpab-1.26.0.phar
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/1.14.1/watchexec-1.14.1-x86_64-unknown-linux-gnu.deb
@@ -121,6 +120,7 @@ RUN set -eux; \
 		man \
 		mariadb-server \
 		nasm \
+		ninja-build \
 		nodejs \
 		openssh-client \
 		p7zip-full \
@@ -179,12 +179,6 @@ RUN set -eux; \
 	&& wget -q -O /tmp/watchexec.deb $watchexec_url \
 	&& dpkg -i /tmp/watchexec.deb \
 	&& rm /tmp/watchexec.deb \
-	\
-	&& wget -q -O /tmp/ninja.zip $ninja_url \
-	&& cd /tmp \
-	&& unzip ninja.zip \
-	&& mv ninja /usr/bin/ninja \
-	&& chmod 755 /usr/bin/ninja \
 	\
 	&& wget -q -O /tmp/rustup.sh https://sh.rustup.rs \
 	&& chmod +x /tmp/rustup.sh \
