@@ -119,6 +119,7 @@ RUN set -eux; \
 		make \
 		man \
 		mariadb-server \
+		meson \
 		nasm \
 		ninja-build \
 		nodejs \
