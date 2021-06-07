@@ -113,6 +113,8 @@ RUN set -eux; \
 		less \
 		libaom-dev \
 		libbz2-dev \
+		librust-gtk-dev \
+		librust-gdk-dev \
 		libssl-dev \
 		libzip-dev \
 		make \
