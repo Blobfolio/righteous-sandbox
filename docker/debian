@@ -149,7 +149,6 @@ RUN set -eux; \
 		pkg-config \
 		procps \
 		rargs \
-		refract \
 		rsync \
 		ruby \
 		sass \
