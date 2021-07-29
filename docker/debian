@@ -22,7 +22,7 @@ LABEL Name="Righteous Sandbox"
 # Binary paths.
 ARG	composer_url=https://getcomposer.org/download/2.1.5/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
-ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.26.1/phpab-1.26.1.phar
+ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.26.3/phpab-1.26.3.phar
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
 ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/cli-v1.17.0/watchexec-1.17.0-x86_64-unknown-linux-gnu.deb
 
