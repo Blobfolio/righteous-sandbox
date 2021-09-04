@@ -1,4 +1,4 @@
-# Righteous Sandbox: Debian Buster
+# Righteous Sandbox: Debian Bullseye
 #
 # This is a crude containerized build environment that moots the need to
 # install things like Node, PHPUnit, etc., locally.
@@ -14,7 +14,7 @@
 
 
 
-FROM debian:buster
+FROM debian:bullseye
 
 # Labels.
 LABEL Name="Righteous Sandbox"
@@ -24,7 +24,7 @@ ARG	composer_url=https://getcomposer.org/download/2.1.5/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.26.3/phpab-1.26.3.phar
 ARG	phpunit_url=https://phar.phpunit.de/phpunit-9.phar
-ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/cli-v1.16.2/watchexec-1.16.2-x86_64-unknown-linux-gnu.deb
+ARG	watchexec_url=https://github.com/watchexec/watchexec/releases/download/cli-v1.17.1/watchexec-1.17.1-x86_64-unknown-linux-gnu.deb
 
 # Rust requires a few other bits of knowledge to install itself.
 ARG rust_version=stable
@@ -62,19 +62,19 @@ RUN set -eux; \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B \
 	\
-	&& echo "deb http://ftp.us.debian.org/debian/ buster main" > /etc/apt/sources.list \
-	&& echo "deb-src http://ftp.us.debian.org/debian/ buster main" >> /etc/apt/sources.list \
-	&& echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list \
-	&& echo "deb-src http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list \
-	&& echo "deb http://ftp.us.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list \
-	&& echo "deb-src http://ftp.us.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list \
-	&& echo "deb http://ftp.us.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
-	&& echo "deb-src http://ftp.us.debian.org/debian buster-backports main" >> /etc/apt/sources.list \
+	&& echo "deb https://deb.debian.org/debian bullseye main" > /etc/apt/sources.list \
+	&& echo "deb-src https://deb.debian.org/debian bullseye main" >> /etc/apt/sources.list \
+	&& echo "deb https://deb.debian.org/debian-security/ bullseye-security main" >> /etc/apt/sources.list \
+	&& echo "deb-src https://deb.debian.org/debian-security/ bullseye-security main" >> /etc/apt/sources.list \
+	&& echo "deb https://deb.debian.org/debian bullseye-updates main" >> /etc/apt/sources.list \
+	&& echo "deb-src https://deb.debian.org/debian bullseye-updates main" >> /etc/apt/sources.list \
+	&& echo "deb https://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list \
+	&& echo "deb-src https://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list \
 	\
-	&& echo "deb https://apt.blobfolio.com/debian/ buster main" > /etc/apt/sources.list.d/blobfolio.list \
-	&& echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list \
+	&& echo "deb https://apt.blobfolio.com/debian/ bullseye main" > /etc/apt/sources.list.d/blobfolio.list \
+	&& echo "deb https://packages.sury.org/php/ bullseye main" > /etc/apt/sources.list.d/php.list \
 	&& echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" > /etc/apt/sources.list.d/apt-fast.list \
-	&& echo "deb https://deb.nodesource.com/node_13.x buster main" > /etc/apt/sources.list.d/node.list \
+	&& echo "deb https://deb.nodesource.com/node_14.x bullseye main" > /etc/apt/sources.list.d/node.list \
 	\
 	&& apt-get update -qq \
 	&& echo debconf apt-fast/maxdownloads string 4 | debconf-set-selections \
