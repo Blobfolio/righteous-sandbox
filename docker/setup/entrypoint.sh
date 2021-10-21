@@ -52,7 +52,8 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 
 		if [ -f "/share/Cargo.toml" ]; then
 			[ ! -f "/share/Cargo.lock" ] || rm "/share/Cargo.lock"
-			cd /share && cargo update && cargo outdated
+			cd /share && cargo update
+			cargo outdated || fyi error "Unable to check for outdated dependencies."
 		fi
 	fi
 
