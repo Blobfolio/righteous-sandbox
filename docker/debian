@@ -58,7 +58,7 @@ RUN set -eux; \
 	&& locale-gen \
 	\
 	&& wget -q -O - https://packages.sury.org/php/apt.gpg | apt-key add - \
-	&& wget -q -O - https://apt.blobfolio.com/apt.blobfolio.com.key | apt-key add - \
+	&& wget -q -O - https://apt.blobfolio.com/assets/apt.blobfolio.com.key | apt-key add - \
 	&& wget -q -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A2166B8DE8BDC3367D1901C11EE2FF37CA8DA16B \
 	\
@@ -71,7 +71,7 @@ RUN set -eux; \
 	&& echo "deb https://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list \
 	&& echo "deb-src https://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list \
 	\
-	&& echo "deb https://apt.blobfolio.com/debian/ bullseye main" > /etc/apt/sources.list.d/blobfolio.list \
+	&& echo "deb https://apt.blobfolio.com/ bullseye main" > /etc/apt/sources.list.d/blobfolio.list \
 	&& echo "deb https://packages.sury.org/php/ bullseye main" > /etc/apt/sources.list.d/php.list \
 	&& echo "deb http://ppa.launchpad.net/apt-fast/stable/ubuntu bionic main" > /etc/apt/sources.list.d/apt-fast.list \
 	&& echo "deb https://deb.nodesource.com/node_14.x bullseye main" > /etc/apt/sources.list.d/node.list \
