@@ -43,7 +43,6 @@ RUN set -eux; \
 	&& apt-get update -qq \
 	\
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-		apt-transport-https \
 		aria2 \
 		bash-completion \
 		ca-certificates \
