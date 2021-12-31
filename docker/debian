@@ -120,6 +120,7 @@ RUN set -eux; \
 		make \
 		man \
 		mariadb-server \
+		mold \
 		meson \
 		nasm \
 		ninja-build \
