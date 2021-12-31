@@ -20,6 +20,7 @@ FROM debian:bullseye
 LABEL Name="Righteous Sandbox"
 
 # Binary paths.
+ARG b3sum_url=https://github.com/BLAKE3-team/BLAKE3/releases/download/1.2.0/b3sum_linux_x64_bin
 ARG	composer_url=https://getcomposer.org/download/2.1.14/composer.phar
 ARG	hyperfine_url=https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
 ARG	phpab_url=https://github.com/theseer/Autoload/releases/download/1.26.3/phpab-1.26.3.phar
@@ -204,6 +205,9 @@ RUN set -eux; \
 		grunt-cli \
 		svgo \
 		terser \
+	\
+	&& wget -q -O /usr/bin/b3sum $b3sum_url \
+	&& chmod 755 /usr/bin/b3sum \
 	\
 	&& wget -q -O /usr/bin/composer $composer_url \
 	&& chmod 755 /usr/bin/composer \
