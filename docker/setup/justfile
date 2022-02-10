@@ -1,0 +1,195 @@
+##
+# Docker Builder
+##
+
+# Container Version.
+sandbox_version := "1.4.6"
+
+# Third-Party Packages.
+b3sum :=     "https://github.com/BLAKE3-team/BLAKE3/releases/download/1.3.0/b3sum_linux_x64_bin"
+composer :=  "https://getcomposer.org/download/2.2.6/composer.phar"
+hyperfine := "https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb"
+phpab :=     "https://github.com/theseer/Autoload/releases/download/1.27.1/phpab-1.27.1.phar"
+phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
+phpunit :=   "https://phar.phpunit.de/phpunit-9.phar"
+watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.18.6/watchexec-1.18.6-x86_64-unknown-linux-gnu.deb"
+
+
+
+# Install Everything!
+@install: install_deb install_manual install_rust install_npm clean
+	mkdir /share
+	echo "{{ sandbox_version }}" > /opt/righteous-sandbox.version
+	echo "$( date -u +"%F %T" ) UTC" > /opt/righteous-sandbox.built
+
+	fyi success "Everything should be set!"
+
+
+# Install Basic Dependencies.
+@install_deb:
+	DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
+		autoconf \
+		automake \
+		bc \
+		bison \
+		brotli \
+		build-essential \
+		bzip2 \
+		cargo-bashman \
+		channelz \
+		checksame \
+		cmake \
+		devscripts \
+		dpkg-dev \
+		dpkg-sig \
+		fd-find \
+		file \
+		flaca \
+		flex \
+		fyi \
+		g++ \
+		gcc \
+		git \
+		gnuplot \
+		guff \
+		htminl \
+		inkscape \
+		jq \
+		less \
+		libaom-dev \
+		libbz2-dev \
+		librust-gtk-dev \
+		librust-gdk-dev \
+		libssl-dev \
+		libzip-dev \
+		make \
+		man \
+		mariadb-server \
+		mold \
+		meson \
+		nasm \
+		ninja-build \
+		nodejs \
+		openssh-client \
+		p7zip-full \
+		parallel \
+		patch \
+		php-getid3 \
+		php-pear \
+		php-php-gettext \
+		php-phpseclib \
+		php8.0-bcmath \
+		php8.0-bz2 \
+		php8.0-cli \
+		php8.0-common \
+		php8.0-curl \
+		php8.0-gd \
+		php8.0-gmp \
+		php8.0-imap \
+		php8.0-intl \
+		php8.0-mbstring \
+		php8.0-mysql \
+		php8.0-opcache \
+		php8.0-readline \
+		php8.0-xml \
+		php8.0-yaml \
+		php8.0-zip \
+		pkg-config \
+		procps \
+		rargs \
+		rsync \
+		ruby \
+		sass \
+		sassc \
+		sd \
+		serse \
+		sqlite3 \
+		sudo \
+		unzip \
+		valgrind \
+		vim \
+		webp \
+		whiptail \
+		wp-cli \
+		xz-utils \
+		yasm \
+		yesvgmap \
+		zip
+
+
+# Install Third-Party Packages.
+@install_manual:
+	wget -q -O /tmp/hyperfine.deb "{{ hyperfine }}"
+	dpkg -i /tmp/hyperfine.deb
+	rm /tmp/hyperfine.deb
+
+	wget -q -O /tmp/watchexec.deb "{{ watchexec }}"
+	dpkg -i /tmp/watchexec.deb
+	rm /tmp/watchexec.deb
+
+	wget -q -O /usr/bin/b3sum "{{ b3sum }}"
+	chmod 755 /usr/bin/b3sum
+
+	wget -q -O /usr/bin/composer "{{ composer }}"
+	chmod 755 /usr/bin/composer
+
+	wget -q -O /usr/bin/phpab "{{ phpab }}"
+	chmod 755 /usr/bin/phpab
+
+	wget -q -O /usr/bin/phpunit "{{ phpunit }}"
+	chmod 755 /usr/bin/phpunit
+
+	mkdir /opt/phpcs
+	wget -q -O /tmp/phpcs.tar.gz "{{ phpcs }}"
+	tar -C /opt/phpcs -xvf /tmp/phpcs.tar.gz
+	ln -s /opt/phpcs/lib/vendor/bin/phpcs /usr/bin/phpcs
+	ln -s /opt/phpcs/lib/vendor/bin/phpcbf /usr/bin/phpcbf
+
+
+# Install NPM Packages.
+@install_npm:
+	npm set cache /tmp/npm-cache
+	npm set package-lock false
+	npm set save false
+	npm set unsafe-perm true
+	npm update -g npm
+	npm install -g \
+		csso-cli \
+		eslint \
+		eslint-plugin-jsdoc \
+		google-closure-compiler \
+		grunt-cli \
+		svgo \
+		terser
+
+
+# Install Rust.
+@install_rust:
+	wget -q -O /tmp/rustup.sh https://sh.rustup.rs
+	chmod +x /tmp/rustup.sh
+	/tmp/rustup.sh -y --profile minimal --default-toolchain stable
+
+	rustup component add clippy
+	rustup component add llvm-tools-preview
+	rustup component add rustfmt
+	DEBIAN_FRONTEND=noninteractive apt-fast install -y righteous-cargo
+	rm -rf /usr/local/cargo/registry/*
+
+	cd /usr/local/rustup/toolchains \
+		&& tar -cvJf ../stable.tar.xz stable-x86_64-unknown-linux-gnu \
+		&& rm -rf stable-x86_64-unknown-linux-gnu
+
+
+# Cleanup.
+@clean:
+	DEBIAN_FRONTEND=noninteractive apt-get purge software-properties-common -y
+	DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y
+
+	apt-get clean -y
+	composer clear
+	rm -rf \
+		/root/.composer \
+		/root/.config \
+		/tmp/* \
+		/var/lib/apt/lists/* \
+		/var/log/*

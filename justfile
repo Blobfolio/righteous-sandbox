@@ -13,7 +13,6 @@ src_dir       := justfile_directory() + "/docker"
 repo          := "https://github.com/Blobfolio/righteous-sandbox.git"
 
 docker_sig    := "/opt/righteous-sandbox.version"
-version       := "1.4.5"
 
 base_image    := "debian:bullseye"
 main_image    := "righteous/sandbox:debian"
@@ -61,18 +60,12 @@ launch DIR="": _build-if
 
 # Build Sandbox.
 @build: _requirements
-	# We want to make a copy of the Dockerfile to set the version, etc.
-	cp "{{ src_dir }}/debian" "{{ src_dir }}/Dockerfile.righteous"
-	sed -i "s/RSVERSION/{{ version }}/g" "{{ src_dir }}/Dockerfile.righteous"
-
 	# Build!
 	cd "{{ src_dir }}" \
 		&& docker build \
+			--compress \
 			-t "{{ main_image }}" \
-			-f Dockerfile.righteous .
-
-	# Clean up.
-	rm "{{ src_dir }}/Dockerfile.righteous"
+			-f Dockerfile .
 
 
 # Build Sandbox, but only if missing.

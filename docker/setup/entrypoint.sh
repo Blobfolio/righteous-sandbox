@@ -27,49 +27,7 @@ echo ""
 echo ""
 
 # Parse project settings, if they exist.
-if [ -f "/share/.righteous-sandbox.json" ]; then
-	_apt_update="$( cat "/share/.righteous-sandbox.json" | jq -r '.apt_update' | grep -v 'none' )"
-	_npm_install="$( cat "/share/.righteous-sandbox.json" | jq -r '.npm_install' | grep -v 'none' )"
-	_rust_update="$( cat "/share/.righteous-sandbox.json" | jq -r '.rust_update' | grep -v 'none' )"
-	_just_init="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_init' | grep -v 'none' )"
-	_just_list="$( cat "/share/.righteous-sandbox.json" | jq -r '.just_list' | grep -v 'none' )"
-
-	# Run updates?
-	if [ "true" == "${_apt_update,,}" ]; then
-		apt-get update -qq
-		DEBIAN_FRONTEND=noninteractive apt-fast dist-upgrade -y
-	fi
-
-	# Install NPM dependencies?
-	if [ "true" == "${_npm_install,,}" ] && [ -f "/share/package.json" ]; then
-		cd /share && npm i
-		chown -R --reference /share/package.json /share/node_modules
-	fi
-
-	# Update Rust.
-	if [ "true" == "${_rust_update,,}" ]; then
-		env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update
-
-		if [ -f "/share/Cargo.toml" ]; then
-			[ ! -f "/share/Cargo.lock" ] || rm "/share/Cargo.lock"
-			cd /share && cargo update
-			cargo outdated || fyi error "Unable to check for outdated dependencies."
-		fi
-	fi
-
-	# Only look at Just-related tasks if there's a justfile present.
-	if [ -f "/share/justfile" ]; then
-		# Initialization with a Just task?
-		if [ ! -z "${_just_init}" ] && [ "null" != "${_just_init,,}" ]; then
-			cd /share && just "${_just_init}"
-		fi
-
-		# List Just tasks?
-		if [ "true" == "${_just_list,,}" ]; then
-			cd /share && just --list
-		fi
-	fi
-fi
+php /opt/entrypoint.php
 
 # Drop to bash.
 exec "/bin/bash"
