@@ -44,7 +44,7 @@ if (is_file('/share/.righteous-sandbox.json')) {
 
 	// Update Rust.
 	if ($data['rust_update']) {
-		passthru('env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update');
+		passthru('rustup --quiet update');
 
 		if (is_file('/share/Cargo.toml')) {
 			passthru('cd /share && cargo outdated || true');
