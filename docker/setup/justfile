@@ -31,7 +31,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.18
 		autoconf \
 		automake \
 		bc \
-		bison \
 		brotli \
 		build-essential \
 		bzip2 \
@@ -41,8 +40,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.18
 		clang \
 		cmake \
 		devscripts \
-		dpkg-dev \
-		dpkg-sig \
 		fd-find \
 		file \
 		flaca \
@@ -51,7 +48,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.18
 		g++ \
 		gcc \
 		git \
-		gnuplot \
 		guff \
 		htminl \
 		inkscape \
