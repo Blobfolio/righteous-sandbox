@@ -38,6 +38,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.18
 		cargo-bashman \
 		channelz \
 		checksame \
+		clang \
 		cmake \
 		devscripts \
 		dpkg-dev \
@@ -62,12 +63,14 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.18
 		librust-gdk-dev \
 		libssl-dev \
 		libzip-dev \
+		llvm \
 		make \
 		man \
 		mariadb-server \
 		mold \
 		meson \
 		nasm \
+		nettle-dev \
 		ninja-build \
 		nodejs \
 		openssh-client \
