@@ -64,7 +64,6 @@ RUN set -eux; \
 # Copy setup files.
 COPY setup/.vimrc setup/.bashrc setup/.profile /root/
 COPY setup/entrypoint.sh /opt/entrypoint.sh
-COPY setup/entrypoint.php /opt/entrypoint.php
 
 # Define some volumes.
 VOLUME /usr/local/cargo/registry
