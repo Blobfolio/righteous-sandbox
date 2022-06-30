@@ -12,7 +12,7 @@ hyperfine := "https://github.com/sharkdp/hyperfine/releases/download/v1.14.0/hyp
 phpab :=     "https://github.com/theseer/Autoload/releases/download/1.27.1/phpab-1.27.1.phar"
 phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
 phpunit :=   "https://phar.phpunit.de/phpunit-9.phar"
-watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.20.0/watchexec-1.20.0-x86_64-unknown-linux-gnu.deb"
+watchexec := "https://github.com/watchexec/watchexec/releases/download/cli-v1.20.3/watchexec-1.20.3-x86_64-unknown-linux-gnu.deb"
 
 
 
