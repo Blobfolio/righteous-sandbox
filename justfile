@@ -14,7 +14,6 @@ repo          := "https://github.com/Blobfolio/righteous-sandbox.git"
 
 docker_sig    := "/opt/righteous-sandbox.version"
 
-base_image    := "debian:bullseye"
 main_image    := "righteous/sandbox:debian"
 instance_name := "righteous_sandbox_debian"
 
@@ -83,7 +82,7 @@ launch DIR="": _build-if
 	just remove
 
 	# Force an update of Debian.
-	docker pull "{{ base_image }}"
+	docker pull debian:bullseye
 
 	# Build it.
 	just build
