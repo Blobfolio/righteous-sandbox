@@ -4,9 +4,6 @@ set -e
 # Make sure we're inside a container.
 [ -f "/opt/righteous-sandbox.version" ] || exit 1
 
-# Make sure Rust stable is populated.
-[ -d "/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-gnu" ] || tar -xf "/usr/local/rustup/stable.tar.xz" -C "/usr/local/rustup/toolchains"
-
 # Print a fun ASCII greeting.
 echo "                              __"
 echo "                     /\\    .-\" /"
@@ -76,7 +73,26 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 	# Update Rust?
 	RUST="$( boolval "rust_update" )"
 	if [ "$RUST" == "true" ]; then
-		env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update 2>/dev/null
+		# Do we need to install rust?
+		if [ -z "$( which rustup )" ]; then
+			echo "Installing Rust"
+
+			wget -q -O /tmp/rustup.sh https://sh.rustup.rs
+			chmod +x /tmp/rustup.sh
+			/tmp/rustup.sh -y --profile minimal --default-toolchain stable
+
+			rustup component add clippy
+			rustup component add llvm-tools-preview
+			rustup component add rustfmt
+			rm -rf /usr/local/cargo/registry/*
+
+			DEBIAN_FRONTEND=noninteractive apt-get update -qq
+			DEBIAN_FRONTEND=noninteractive apt-fast install -y righteous-cargo
+
+			rm /tmp/rustup.sh
+		else
+			env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update 2>/dev/null
+		fi
 
 		if [ -f "/share/Cargo.toml" ]; then
 			echo ""

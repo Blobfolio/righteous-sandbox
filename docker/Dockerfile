@@ -66,8 +66,8 @@ COPY setup/.vimrc setup/.bashrc setup/.profile /root/
 COPY setup/entrypoint.sh /opt/entrypoint.sh
 
 # Define some volumes.
-VOLUME /usr/local/cargo/registry
-VOLUME /usr/local/rustup/toolchains
+VOLUME /usr/local/cargo
+VOLUME /usr/local/rustup
 
 # This is how it begins.
 WORKDIR /share
