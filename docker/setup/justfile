@@ -40,7 +40,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		cargo-bashman \
 		channelz \
 		checksame \
-		clang \
+		clang-13 \
 		cmake \
 		devscripts \
 		fd-find \
@@ -59,12 +59,14 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		less \
 		libaom-dev \
 		libbz2-dev \
-		librust-gtk-dev \
 		librust-gdk-dev \
+		librust-gtk-dev \
 		libssl-dev \
 		libzip-dev \
-		llvm \
-		llvm-11-dev \
+		lld-13 \
+		lldb-13 \
+		llvm-13 \
+		llvm-13-linker-tools \
 		make \
 		man \
 		mariadb-server \
