@@ -64,6 +64,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		libssl-dev \
 		libzip-dev \
 		llvm \
+		llvm-11-dev \
 		make \
 		man \
 		mariadb-server \
