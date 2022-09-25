@@ -101,7 +101,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		php8.0-zip \
 		pkg-config \
 		procps \
-		rargs \
 		rsync \
 		ruby \
 		sass \
