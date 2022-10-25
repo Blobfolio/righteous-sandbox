@@ -109,6 +109,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		sox \
 		sqlite3 \
 		sudo \
+		typos \
 		unzip \
 		valgrind \
 		vim \
