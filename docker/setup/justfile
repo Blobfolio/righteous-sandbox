@@ -66,7 +66,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.21.0/w
 		lld-13 \
 		llvm-13 \
 		llvm-13-linker-tools \
-		loudgain \
 		make \
 		man \
 		mariadb-server \
@@ -106,7 +105,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.21.0/w
 		sassc \
 		sd \
 		serse \
-		sox \
 		sqlite3 \
 		sudo \
 		typos \
