@@ -159,7 +159,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.21.0/w
 	npm install -g \
 		eslint \
 		eslint-plugin-jsdoc \
-		google-closure-compiler \
+		google-closure-compiler@20221102.0.1 \
 		grunt-cli \
 		svgo \
 		terser
