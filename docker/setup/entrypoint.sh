@@ -96,7 +96,7 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 
 		if [ -f "/share/Cargo.toml" ]; then
 			echo ""
-			cargo outdated || true
+			cargo outdated --depth 1 || true
 			echo ""
 		fi
 	fi
