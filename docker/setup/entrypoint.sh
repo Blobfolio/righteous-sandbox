@@ -87,7 +87,6 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 			rm -rf /usr/local/cargo/registry/*
 
 			DEBIAN_FRONTEND=noninteractive apt-get update -qq
-			DEBIAN_FRONTEND=noninteractive apt-fast install -y righteous-cargo
 
 			rm /tmp/rustup.sh
 		else
