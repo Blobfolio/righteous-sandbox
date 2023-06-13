@@ -22,7 +22,7 @@ LABEL Name="Righteous Sandbox"
 # Rust requires a few other bits of knowledge to install itself.
 ENV	RUSTUP_HOME=/usr/local/rustup \
 	CARGO_HOME=/usr/local/cargo \
-	PATH=/usr/local/cargo/bin:/opt/binstall/bin:$PATH
+	PATH=/usr/local/cargo/bin:$PATH
 
 COPY setup/justfile /root/
 COPY setup/keyrings/ /usr/share/keyrings/
