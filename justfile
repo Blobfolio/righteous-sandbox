@@ -69,7 +69,7 @@ launch DIR="": _build-if
 
 # Build Sandbox, but only if missing.
 @_build-if: _requirements
-	[ ! -z "$( docker images | \
+	[ -n "$( docker images | \
 		grep "righteous/sandbox" | \
 		grep "debian" )" ] || just rebuild
 
