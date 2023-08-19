@@ -1,16 +1,6 @@
-Types: deb deb-src
-URIs: https://deb.debian.org/debian
-Suites: bullseye bullseye-updates bullseye-backports
-Components: main
-
-Types: deb deb-src
-URIs: https://deb.debian.org/debian-security/
-Suites: bullseye-security
-Components: main
-
 Types: deb
 URIs: https://apt.blobfolio.com
-Suites: bullseye
+Suites: bookworm
 Components: main
 Architectures: amd64
 Signed-By: /usr/share/keyrings/apt.blobfolio.com-archive-keyring.gpg
@@ -22,13 +12,13 @@ Components: main
 Signed-By: /usr/share/keyrings/apt-fast-archive-keyring.gpg
 
 Types: deb
-URIs: https://deb.nodesource.com/node_16.x
-Suites: bullseye
+URIs: https://deb.nodesource.com/node_18.x
+Suites: bookworm
 Components: main
 Signed-By: /usr/share/keyrings/nodesource-archive-keyring.gpg
 
 Types: deb
 URIs: https://packages.sury.org/php/
-Suites: bullseye
+Suites: bookworm
 Components: main
 Signed-By: /usr/share/keyrings/php-archive-keyring.gpg

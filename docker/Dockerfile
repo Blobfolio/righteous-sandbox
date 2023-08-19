@@ -14,7 +14,7 @@
 
 
 
-FROM debian:bullseye
+FROM debian:bookworm
 
 # Labels.
 LABEL Name="Righteous Sandbox"
@@ -38,7 +38,8 @@ RUN set -eux; \
 		ca-certificates \
 		dirmngr \
 		gnupg \
-	&& echo '' > /etc/apt/sources.list \
+	&& sed -i 's/Types: deb/Types: deb deb-src/g' /etc/apt/sources.list.d/debian.sources \
+	&& sed -i 's/bookworm-updates/bookworm-updates bookworm-backports/g' /etc/apt/sources.list.d/debian.sources \
 	&& mv /etc/apt/sources.list.d/righteous.sources.bak /etc/apt/sources.list.d/righteous.sources \
 	&& apt-get update \
 	\

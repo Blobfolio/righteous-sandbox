@@ -3,7 +3,7 @@
 ##
 
 # Container Version.
-sandbox_version := "1.5.2"
+sandbox_version := "1.6.0"
 
 # Third-Party Packages.
 b3sum :=     "https://github.com/BLAKE3-team/BLAKE3/releases/download/1.4.1/b3sum_linux_x64_bin"
@@ -12,7 +12,7 @@ hyperfine := "https://github.com/sharkdp/hyperfine/releases/download/v1.17.0/hyp
 phpab :=     "https://github.com/theseer/Autoload/releases/download/1.28.0/phpab-1.28.0.phar"
 phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
 phpunit :=   "https://phar.phpunit.de/phpunit-9.phar"
-watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/watchexec-1.20.6-x86_64-unknown-linux-gnu.deb"
+watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.22.3/watchexec-1.22.3-x86_64-unknown-linux-gnu.deb"
 
 
 
@@ -40,10 +40,9 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		cargo-bashman \
 		channelz \
 		checksame \
-		clang-13 \
+		clang \
 		cmake \
 		devscripts \
-		fd-find \
 		file \
 		flac1.4 \
 		flaca \
@@ -63,9 +62,9 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 		librust-gtk-dev \
 		libssl-dev \
 		libzip-dev \
-		lld-13 \
-		llvm-13 \
-		llvm-13-linker-tools \
+		lld \
+		llvm \
+		llvm-14-linker-tools \
 		make \
 		man \
 		mariadb-server \
@@ -154,7 +153,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.20.6/w
 	npm set cache /tmp/npm-cache
 	npm set package-lock false
 	npm set save false
-	npm set unsafe-perm true
+	#npm set unsafe-perm true
 	npm update -g npm
 	npm install -g \
 		eslint \
