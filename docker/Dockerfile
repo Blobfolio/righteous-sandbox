@@ -25,14 +25,12 @@ ENV	RUSTUP_HOME=/usr/local/rustup \
 	PATH=/usr/local/cargo/bin:$PATH
 
 COPY setup/justfile /root/
-COPY setup/keyrings/ /usr/share/keyrings/
-COPY setup/righteous.sources /etc/apt/sources.list.d/righteous.sources.bak
+COPY setup/righteous.sources /etc/apt/sources.list.d
 
 # Set it up!
 RUN set -eux; \
 	cd /tmp \
 	&& echo "hsts=0" > /root/.wgetrc \
-	&& chown -R root: /usr/share/keyrings \
 	&& apt-get update -qq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 		ca-certificates \
@@ -40,7 +38,7 @@ RUN set -eux; \
 		gnupg \
 	&& sed -i 's/Types: deb/Types: deb deb-src/g' /etc/apt/sources.list.d/debian.sources \
 	&& sed -i 's/bookworm-updates/bookworm-updates bookworm-backports/g' /etc/apt/sources.list.d/debian.sources \
-	&& mv /etc/apt/sources.list.d/righteous.sources.bak /etc/apt/sources.list.d/righteous.sources \
+	&& sed -i 's/Enabled: No/Enabled: Yes/g' /etc/apt/sources.list.d/righteous.sources \
 	&& apt-get update \
 	\
 	&& echo debconf apt-fast/maxdownloads string 4 | debconf-set-selections \
