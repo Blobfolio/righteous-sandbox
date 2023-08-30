@@ -58,6 +58,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.22.3/w
 		less \
 		libaom-dev \
 		libbz2-dev \
+		libcdio-dev \
 		librust-gdk-dev \
 		librust-gtk-dev \
 		libssl-dev \
