@@ -26,6 +26,7 @@ ENV	RUSTUP_HOME=/usr/local/rustup \
 
 COPY setup/justfile /root/
 COPY setup/righteous.sources /etc/apt/sources.list.d
+COPY setup/svgo.config.js /etc/
 
 # Set it up!
 RUN set -eux; \
