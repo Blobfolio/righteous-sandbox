@@ -43,6 +43,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.23.0/w
 		clang \
 		cmake \
 		devscripts \
+		esbuild \
 		file \
 		flac1.4 \
 		flaca \
