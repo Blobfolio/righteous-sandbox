@@ -54,6 +54,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.24.2/w
 		git \
 		guff \
 		htminl \
+		imagemagick \
 		inkscape \
 		jq \
 		less \
