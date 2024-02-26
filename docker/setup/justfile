@@ -40,7 +40,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.25.1/w
 		cargo-bashman \
 		channelz \
 		checksame \
-		clang \
+		clang-17 lld-17 llvm-17 llvm-17-linker-tools \
 		cmake \
 		devscripts \
 		esbuild \
@@ -65,9 +65,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.25.1/w
 		librust-gtk-dev \
 		libssl-dev \
 		libzip-dev \
-		lld \
-		llvm \
-		llvm-14-linker-tools \
 		make \
 		man \
 		mariadb-server \
