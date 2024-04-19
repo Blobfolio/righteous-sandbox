@@ -40,7 +40,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.25.1/w
 		cargo-bashman \
 		channelz \
 		checksame \
-		clang-17 lld-17 llvm-17 llvm-17-linker-tools \
+		clang-17 lld-17 llvm-17 llvm-17-linker-tools bolt-17 \
 		cmake \
 		devscripts \
 		esbuild \
