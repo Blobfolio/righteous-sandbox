@@ -159,13 +159,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.25.1/w
 	npm set save false
 	#npm set unsafe-perm true
 	npm update -g npm
-	npm install -g \
-		eslint \
-		eslint-plugin-jsdoc \
-		google-closure-compiler \
-		grunt-cli \
-		svgo \
-		terser
+	npm install -g svgo terser
 
 
 # Cleanup.
