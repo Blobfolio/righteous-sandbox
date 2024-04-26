@@ -12,7 +12,7 @@ hyperfine := "https://github.com/sharkdp/hyperfine/releases/download/v1.18.0/hyp
 oxlint :=    "https://github.com/oxc-project/oxc/releases/download/oxlint_v0.2.18/oxlint-linux-x64-gnu"
 phpab :=     "https://github.com/theseer/Autoload/releases/download/1.29.0/phpab-1.29.0.phar"
 phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
-phpunit :=   "https://phar.phpunit.de/phpunit-9.phar"
+phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 watchexec := "https://github.com/watchexec/watchexec/releases/download/v1.25.1/watchexec-1.25.1-x86_64-unknown-linux-gnu.deb"
 
 
