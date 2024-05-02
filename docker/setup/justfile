@@ -117,7 +117,8 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.1.1/wa
 		xz-utils \
 		yasm \
 		yesvgmap \
-		zip
+		zip \
+		zstd
 
 
 # Install Third-Party Packages.
