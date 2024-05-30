@@ -40,7 +40,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.1.1/wa
 		bzip2 \
 		cargo-bashman \
 		channelz \
-		checksame \
 		clang-18 lld-18 llvm-18 llvm-18-linker-tools bolt-18 \
 		cmake \
 		devscripts \
