@@ -3,7 +3,7 @@
 ##
 
 # Container Version.
-sandbox_version := "1.6.5"
+sandbox_version := "1.6.6"
 
 # Third-Party Packages.
 b3sum :=     "https://github.com/BLAKE3-team/BLAKE3/releases/download/1.5.4/b3sum_linux_x64_bin"
