@@ -7,7 +7,6 @@ sandbox_version := "1.6.7"
 
 # Third-Party Packages.
 composer :=  "https://getcomposer.org/download/2.8.0/composer.phar"
-hyperfine := "https://github.com/sharkdp/hyperfine/releases/download/v1.18.0/hyperfine_1.18.0_amd64.deb"
 oxlint :=    "https://github.com/oxc-project/oxc/releases/download/oxlint_v0.9.9/oxlint-linux-x64-gnu"
 phpab :=     "https://github.com/theseer/Autoload/releases/download/1.29.1/phpab-1.29.1.phar"
 phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
@@ -122,10 +121,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.1.2/wa
 
 # Install Third-Party Packages.
 @install_manual:
-	wget -q -O /tmp/hyperfine.deb "{{ hyperfine }}"
-	dpkg -i /tmp/hyperfine.deb
-	rm /tmp/hyperfine.deb
-
 	wget -q -O /tmp/watchexec.deb "{{ watchexec }}"
 	dpkg -i /tmp/watchexec.deb
 	rm /tmp/watchexec.deb
