@@ -39,7 +39,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.2.0/wa
 		bzip2 \
 		cargo-bashman \
 		channelz \
-		clang-18 lld-18 llvm-18 llvm-18-linker-tools bolt-18 \
+		clang-19 lld-19 llvm-19 llvm-19-linker-tools bolt-19 \
 		cmake \
 		devscripts \
 		esbuild \

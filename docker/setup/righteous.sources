@@ -78,7 +78,7 @@ Signed-By:
 Enabled: No
 Types: deb
 URIs: http://apt.llvm.org/bookworm/
-Suites: llvm-toolchain-bookworm-18
+Suites: llvm-toolchain-bookworm-19
 Components: main
 Signed-By:
  -----BEGIN PGP PUBLIC KEY BLOCK-----
