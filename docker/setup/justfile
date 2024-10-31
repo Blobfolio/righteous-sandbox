@@ -3,7 +3,7 @@
 ##
 
 # Container Version.
-sandbox_version := "1.6.9"
+sandbox_version := "1.7.0"
 
 # Third-Party Packages.
 composer :=  "https://getcomposer.org/download/2.8.2/composer.phar"
