@@ -7,7 +7,7 @@ sandbox_version := "1.7.0"
 
 # Third-Party Packages.
 composer :=  "https://getcomposer.org/download/2.8.3/composer.phar"
-oxlint :=    "https://github.com/oxc-project/oxc/releases/download/oxlint_v0.11.1/oxlint-linux-x64-gnu"
+oxlint :=    "https://github.com/oxc-project/oxc/releases/download/oxlint_v0.13.2/oxlint-linux-x64-gnu"
 phpab :=     "https://github.com/theseer/Autoload/releases/download/1.29.2/phpab-1.29.2.phar"
 phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
 phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
