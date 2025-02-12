@@ -44,7 +44,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.2.1/wa
 		devscripts \
 		esbuild \
 		file \
-		flac1.4 \
+		flac \
 		flaca \
 		flex \
 		fyi \
