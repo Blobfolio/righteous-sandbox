@@ -112,6 +112,7 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.2.1/wa
 		webp \
 		whiptail \
 		wp-cli \
+		xxd \
 		xz-utils \
 		yasm \
 		yesvgmap \
