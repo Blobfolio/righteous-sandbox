@@ -60,8 +60,6 @@ watchexec := "https://github.com/watchexec/watchexec/releases/download/v2.2.1/wa
 		libaom-dev \
 		libbz2-dev \
 		libcdio-dev \
-		librust-gdk-dev \
-		librust-gtk-dev \
 		libssl-dev \
 		libzip-dev \
 		make \
