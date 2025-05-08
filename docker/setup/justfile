@@ -58,7 +58,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 		less \
 		libaom-dev \
 		libbz2-dev \
-		libcdio-dev \
 		libssl-dev \
 		libzip-dev \
 		make \
@@ -119,6 +118,10 @@ phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 
 # Install Third-Party Packages.
 @install_manual:
+	# TODO: remove these once we switch to Trixie.
+	dpkg -i /tmp/libcdio19t64_2.2.0-4_amd64.deb /tmp/libcdio-dev_2.2.0-4_amd64.deb
+	rm /tmp/libcdio19t64_2.2.0-4_amd64.deb /tmp/libcdio-dev_2.2.0-4_amd64.deb
+
 	wget -q -O /usr/bin/composer "{{ composer }}"
 	chmod 755 /usr/bin/composer
 

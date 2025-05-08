@@ -27,6 +27,8 @@ ENV	RUSTUP_HOME=/usr/local/rustup \
 COPY setup/justfile /root/
 COPY setup/righteous.sources /etc/apt/sources.list.d
 COPY setup/svgo.config.js /etc/
+COPY setup/libcdio19t64_2.2.0-4_amd64.deb /tmp/
+COPY setup/libcdio-dev_2.2.0-4_amd64.deb /tmp/
 
 # Set it up!
 RUN set -eux; \
