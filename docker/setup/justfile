@@ -3,11 +3,11 @@
 ##
 
 # Container Version.
-sandbox_version := "1.7.1"
+sandbox_version := "2.0.0"
 
 # Third-Party Packages.
 composer :=  "https://getcomposer.org/download/2.8.10/composer.phar"
-oxlint :=    "https://github.com/oxc-project/oxc/releases/download/oxlint_v1.11.2/oxlint-linux-x64-gnu"
+oxlint :=    "https://github.com/oxc-project/oxc/releases/download/oxlint_v1.12.0/oxlint-linux-x64-gnu"
 phpab :=     "https://github.com/theseer/Autoload/releases/download/1.29.3/phpab-1.29.3.phar"
 phpcs :=     "https://apt.blobfolio.com/other/blobfolio-phpcs.tar.gz"
 phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
@@ -58,6 +58,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 		less \
 		libaom-dev \
 		libbz2-dev \
+		libcdio-dev \
 		libssl-dev \
 		libzip-dev \
 		make \
@@ -73,7 +74,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 		patch \
 		php-getid3 \
 		php-pear \
-		php-php-gettext \
 		php-phpseclib \
 		php8.4-bcmath \
 		php8.4-bz2 \
@@ -118,10 +118,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 
 # Install Third-Party Packages.
 @install_manual:
-	# TODO: remove these once we switch to Trixie.
-	dpkg -i /tmp/libcdio19t64_2.2.0-4_amd64.deb /tmp/libcdio-dev_2.2.0-4_amd64.deb
-	rm /tmp/libcdio19t64_2.2.0-4_amd64.deb /tmp/libcdio-dev_2.2.0-4_amd64.deb
-
 	wget -q -O /usr/bin/composer "{{ composer }}"
 	chmod 755 /usr/bin/composer
 
@@ -146,7 +142,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-11.phar"
 	npm set cache /tmp/npm-cache
 	npm set package-lock false
 	npm set save false
-	#npm set unsafe-perm true
 	npm update -g npm
 	npm install -g svgo terser
 

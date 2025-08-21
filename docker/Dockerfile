@@ -14,7 +14,7 @@
 
 
 
-FROM debian:bookworm
+FROM debian:trixie
 
 # Labels.
 LABEL Name="Righteous Sandbox"
@@ -27,8 +27,6 @@ ENV	RUSTUP_HOME=/usr/local/rustup \
 COPY setup/justfile /root/
 COPY setup/righteous.sources /etc/apt/sources.list.d
 COPY setup/svgo.config.js /etc/
-COPY setup/libcdio19t64_2.2.0-4_amd64.deb /tmp/
-COPY setup/libcdio-dev_2.2.0-4_amd64.deb /tmp/
 
 # Set it up!
 RUN set -eux; \
@@ -40,7 +38,7 @@ RUN set -eux; \
 		dirmngr \
 		gnupg \
 	&& sed -i 's/Types: deb/Types: deb deb-src/g' /etc/apt/sources.list.d/debian.sources \
-	&& sed -i 's/bookworm-updates/bookworm-updates bookworm-backports/g' /etc/apt/sources.list.d/debian.sources \
+	&& sed -i 's/trixie-updates/trixie-updates trixie-backports/g' /etc/apt/sources.list.d/debian.sources \
 	&& sed -i 's/Enabled: No/Enabled: Yes/g' /etc/apt/sources.list.d/righteous.sources \
 	&& apt-get update \
 	\

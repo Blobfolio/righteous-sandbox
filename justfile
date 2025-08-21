@@ -14,8 +14,8 @@ repo          := "https://github.com/Blobfolio/righteous-sandbox.git"
 
 docker_sig    := "/opt/righteous-sandbox.version"
 
-main_image    := "righteous/sandbox:bookworm"
-instance_name := "righteous_sandbox_bookworm"
+main_image    := "righteous/sandbox:trixie"
+instance_name := "righteous_sandbox_trixie"
 
 
 
@@ -71,7 +71,7 @@ launch DIR="": _build-if
 @_build-if: _requirements
 	[ -n "$( docker images | \
 		grep "righteous/sandbox" | \
-		grep "bookworm" )" ] || just rebuild
+		grep "trixie" )" ] || just rebuild
 
 
 # Rebuild Environment.
@@ -82,7 +82,7 @@ launch DIR="": _build-if
 	just remove
 
 	# Force an update of Debian.
-	docker pull debian:bookworm
+	docker pull debian:trixie
 
 	# Build it.
 	just build
@@ -92,7 +92,7 @@ launch DIR="": _build-if
 @remove: _requirements
 	[ -z "$( docker images | \
 		grep "righteous/sandbox" | \
-		grep "bookworm" )" ] || docker rmi "{{ main_image }}"
+		grep "trixie" )" ] || docker rmi "{{ main_image }}"
 
 
 # Pull sources from master and then rebuild.
