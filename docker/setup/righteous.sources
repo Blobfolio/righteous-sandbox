@@ -23,7 +23,7 @@ Signed-By:
 Enabled: No
 Types: deb
 URIs: https://ppa.launchpadcontent.net/apt-fast/stable/ubuntu
-Suites: jammy
+Suites: noble
 Components: main
 Signed-By:
  -----BEGIN PGP PUBLIC KEY BLOCK-----
