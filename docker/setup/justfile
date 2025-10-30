@@ -3,7 +3,7 @@
 ##
 
 # Container Version.
-sandbox_version := "2.0.2"
+sandbox_version := "2.0.3"
 
 # Third-Party Packages.
 composer :=  "https://getcomposer.org/download/2.8.12/composer.phar"
@@ -38,7 +38,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-12.phar"
 		bzip2 \
 		cargo-bashman \
 		channelz \
-		clang-20 lld-20 llvm-20 llvm-20-linker-tools \
+		clang-21 lld-21 llvm-21 llvm-21-linker-tools \
 		cmake \
 		devscripts \
 		esbuild \
