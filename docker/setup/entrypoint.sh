@@ -90,7 +90,7 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 
 			rm /tmp/rustup.sh
 		else
-			env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update 2>/dev/null
+			env RUSTUP_PERMIT_COPY_RENAME=true rustup --quiet update 2>/dev/null || true
 		fi
 
 		if [ -f "/share/Cargo.toml" ]; then
