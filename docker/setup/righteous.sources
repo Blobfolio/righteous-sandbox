@@ -98,6 +98,7 @@ Types: deb
 URIs: http://apt.llvm.org/trixie/
 Suites: llvm-toolchain-trixie-21
 Components: main
+Trusted: Yes
 Signed-By:
  -----BEGIN PGP PUBLIC KEY BLOCK-----
  .
