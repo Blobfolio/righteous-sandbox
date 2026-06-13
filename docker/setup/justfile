@@ -42,6 +42,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-12.phar"
 		cmake \
 		devscripts \
 		esbuild \
+		exiftool \
 		file \
 		flac \
 		flaca \
