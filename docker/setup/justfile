@@ -3,7 +3,7 @@
 ##
 
 # Container Version.
-sandbox_version := "2.0.6"
+sandbox_version := "2.0.7"
 
 # Third-Party Packages.
 composer :=  "https://getcomposer.org/download/2.10.2/composer.phar"
@@ -60,6 +60,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 		libaom-dev \
 		libbz2-dev \
 		libcdio-dev \
+		libjxl-tools \
 		libssl-dev \
 		libzip-dev \
 		make \
@@ -121,8 +122,11 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 	wget -q -O /usr/bin/composer "{{ composer }}"
 	chmod 755 /usr/bin/composer
 
-	wget -q -O /usr/bin/oxlint "{{ oxlint }}"
-	chmod 755 /usr/bin/oxlint
+	wget -q -O /tmp/oxlint.tar.gz "{{ oxlint }}"
+	tar -C /tmp -xvf /tmp/oxlint.tar.gz
+	chmod 755 /tmp/oxlint-x86_64-unknown-linux-gnu
+	mv /tmp/oxlint-x86_64-unknown-linux-gnu /usr/bin/oxlint
+	rm /tmp/oxlint.tar.gz
 
 	wget -q -O /usr/bin/phpab "{{ phpab }}"
 	chmod 755 /usr/bin/phpab
@@ -143,7 +147,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 	npm set package-lock false
 	npm set save false
 	npm update -g npm || true #https://github.com/nodejs/node/issues/62425
-	npm install -g svgo terser
+	npm install -g svgo terser @stylistic/eslint-plugin
 
 
 # Cleanup.
