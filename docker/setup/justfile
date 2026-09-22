@@ -62,6 +62,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 		libcdio-dev \
 		libjxl-tools \
 		libssl-dev \
+		libudev-dev \
 		libzip-dev \
 		make \
 		man \
