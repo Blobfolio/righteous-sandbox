@@ -146,7 +146,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 	npm set cache /tmp/npm-cache
 	npm set package-lock false
 	npm set save false
-	npm update -g npm || true #https://github.com/nodejs/node/issues/62425
+	npm update -g npm || true
 	npm install -g svgo terser @stylistic/eslint-plugin
 
 

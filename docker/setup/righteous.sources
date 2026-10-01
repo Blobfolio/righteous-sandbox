@@ -58,7 +58,7 @@ Signed-By:
 
 Enabled: No
 Types: deb
-URIs: https://deb.nodesource.com/node_22.x
+URIs: https://deb.nodesource.com/node_24.x
 Suites: nodistro
 Components: main
 Signed-By:
