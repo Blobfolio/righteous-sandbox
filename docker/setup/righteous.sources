@@ -96,7 +96,7 @@ Signed-By:
 Enabled: No
 Types: deb
 URIs: http://apt.llvm.org/trixie/
-Suites: llvm-toolchain-trixie-22
+Suites: llvm-toolchain-trixie-23
 Components: main
 Signed-By:
  -----BEGIN PGP PUBLIC KEY BLOCK-----

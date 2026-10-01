@@ -38,7 +38,7 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 		bzip2 \
 		cargo-bashman \
 		channelz \
-		clang-22 lld-22 llvm-22 llvm-22-linker-tools \
+		clang-23 lld-23 llvm-23 llvm-23-linker-tools \
 		cmake \
 		devscripts \
 		esbuild \
@@ -62,7 +62,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 		libcdio-dev \
 		libjxl-tools \
 		libssl-dev \
-		libudev-dev \
 		libzip-dev \
 		make \
 		man \
