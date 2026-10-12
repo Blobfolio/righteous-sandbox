@@ -102,7 +102,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 		serse \
 		sqlite3 \
 		sudo \
-		typos \
 		unzip \
 		valgrind \
 		vim \
