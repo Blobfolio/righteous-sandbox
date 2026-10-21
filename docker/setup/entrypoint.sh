@@ -59,9 +59,6 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 		fi
 	fi
 
-	# Get rid of any Cargo.lock files.
-	find . -name 'Cargo.lock' -type f -delete
-
 	# Run Just init task?
 	INIT="$( jqval "just_init" )"
 	if [ -n "$INIT" ]; then
@@ -95,7 +92,7 @@ if [ -f "/share/.righteous-sandbox.json" ]; then
 
 		if [ -f "/share/Cargo.toml" ]; then
 			echo ""
-			cargo outdated --depth 1 || true
+			cargo update --verbose || true
 			echo ""
 		fi
 	fi
