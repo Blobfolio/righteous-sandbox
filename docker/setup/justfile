@@ -59,7 +59,6 @@ phpunit :=   "https://phar.phpunit.de/phpunit-13.phar"
 		less \
 		libaom-dev \
 		libbz2-dev \
-		libcdio-dev \
 		libjxl-tools \
 		libssl-dev \
 		libzip-dev \
